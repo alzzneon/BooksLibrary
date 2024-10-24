@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- item_peminjaman.xml -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -6,23 +7,27 @@
     android:padding="16dp">
 
     <TextView
-        android:id="@+id/namaPengunjungText"
+        android:id="@+id/textViewNamaPeminjam"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Nama Pengunjung"
-        android:textSize="18sp" />
+        android:text="Nama Peminjam" />
 
     <TextView
-        android:id="@+id/judulBukuText"
+        android:id="@+id/textViewBukuDipinjam"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Judul Buku"
-        android:textSize="16sp" />
+        android:text="Buku Dipinjam" />
 
     <TextView
-        android:id="@+id/tanggalPinjamText"
+        android:id="@+id/textViewTanggalPinjam"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tanggal Pinjam"
-        android:textSize="14sp" />
+        android:text="Tanggal Pinjam" />
+
+    <Button
+        android:id="@+id/buttonDelete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delete" />
+
 </LinearLayout>

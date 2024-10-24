@@ -25,12 +25,16 @@
         <activity
             android:name=".addActivity.AddPengunjungActivity"
             android:exported="true" />
+        <activity android:name=".addActivity.AddPeminjamanActivity"
+            android:exported="true"/>
         <activity
             android:name=".list.ListBuku"
             android:exported="true" />
         <activity
             android:name=".list.ListPengunjungActivity"
             android:exported="true" />
+        <activity android:name=".list.ListPeminjamanActivity"
+            android:exported="true"/>
 
     </application>
 </manifest>

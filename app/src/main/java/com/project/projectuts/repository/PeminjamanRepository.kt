@@ -1,16 +1,28 @@
 package com.project.projectuts.repository
 
-import com.project.projectuts.model.Peminjaman
-import com.project.projectuts.model.PeminjamanRelasi
+import androidx.lifecycle.LiveData
 import com.project.projectuts.dao.PeminjamanDao
+import com.project.projectuts.model.Peminjaman
 
 class PeminjamanRepository(private val peminjamanDao: PeminjamanDao) {
 
-    suspend fun getAllPeminjamanWithDetails(): List<PeminjamanRelasi> {
-        return peminjamanDao.getAllPeminjamanWithDetails()
+    // Mengambil semua data peminjam
+    fun getAllPeminjam(): LiveData<List<Peminjaman>> {
+        return peminjamanDao.getAllPeminjaman()
     }
 
-    suspend fun insertPeminjaman(peminjaman: Peminjaman) {
+    // Menambahkan peminjam
+    suspend fun insertPeminjam(peminjaman: Peminjaman) {
         peminjamanDao.insertPeminjaman(peminjaman)
+    }
+
+    // Mengupdate peminjam
+    suspend fun updatePeminjam(peminjaman: Peminjaman) {
+        peminjamanDao.updatePeminjaman(peminjaman) // Pastikan ini sesuai dengan metode yang ada di PeminjamanDao
+    }
+
+    // Menghapus peminjam
+    suspend fun deletePeminjam(peminjaman: Peminjaman) {
+        peminjamanDao.deletePeminjaman(peminjaman) // Pastikan ini sesuai dengan metode yang ada di PeminjamanDao
     }
 }

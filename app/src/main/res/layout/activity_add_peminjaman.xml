@@ -6,22 +6,22 @@
     android:padding="16dp">
 
     <EditText
-        android:id="@+id/editTextPengunjungId"
+        android:id="@+id/editTextNamaPeminjam"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="ID Pengunjung" />
+        android:hint="Nama Peminjam" />
 
     <EditText
-        android:id="@+id/editTextBukuId"
+        android:id="@+id/editTextBukuDipinjam"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="ID Buku" />
+        android:hint="Buku Yang Dipinjam" />
 
     <EditText
         android:id="@+id/editTextTanggalPinjam"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Tanggal Pinjam" />
+        android:hint="Tanggal Peminjaman" />
 
     <Button
         android:id="@+id/buttonAddPeminjaman"

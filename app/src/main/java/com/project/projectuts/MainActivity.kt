@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.project.projectuts.addActivity.AddPeminjamanActivity
 import com.project.projectuts.databinding.ActivityMainBinding
 import com.project.projectuts.list.ListBuku
+import com.project.projectuts.list.ListPeminjamanActivity
 import com.project.projectuts.list.ListPengunjungActivity
 
 class MainActivity : AppCompatActivity() {
@@ -31,8 +32,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         // Tambahkan listener untuk button Add Peminjaman
-        binding.buttonAddPeminjaman.setOnClickListener {
-            val intent = Intent(this, AddPeminjamanActivity::class.java)
+        binding.buttonListeminjaman.setOnClickListener {
+            val intent = Intent(this, ListPeminjamanActivity::class.java)
             startActivity(intent)
         }
     }

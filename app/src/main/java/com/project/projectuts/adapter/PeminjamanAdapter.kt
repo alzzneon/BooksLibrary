@@ -3,17 +3,24 @@ package com.project.projectuts.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.project.projectuts.model.PeminjamanRelasi
 import com.project.projectuts.databinding.ItemPeminjamanBinding
+import com.project.projectuts.model.Peminjaman
 
-class PeminjamanAdapter(private var peminjamanList: List<PeminjamanRelasi>) :
-    RecyclerView.Adapter<PeminjamanAdapter.PeminjamanViewHolder>() {
+class PeminjamanAdapter(
+    private var peminjamanList: List<Peminjaman>,
+    private val onDeleteClick: (Peminjaman) -> Unit
+) : RecyclerView.Adapter<PeminjamanAdapter.PeminjamanViewHolder>() {
 
     class PeminjamanViewHolder(private val binding: ItemPeminjamanBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(peminjaman: PeminjamanRelasi) {
-            binding.namaPengunjungText.text = peminjaman.nama
-            binding.judulBukuText.text = peminjaman.judul
-            binding.tanggalPinjamText.text = peminjaman.tanggalPinjam
+        fun bind(peminjaman: Peminjaman, onDeleteClick: (Peminjaman) -> Unit) {
+            // Set the data in your view here
+            binding.textViewNamaPeminjam.text = peminjaman.namaPeminjam
+            binding.textViewBukuDipinjam.text = peminjaman.bukuDipinjam
+            binding.textViewTanggalPinjam.text = peminjaman.tglDipinjam
+
+            binding.buttonDelete.setOnClickListener {
+                onDeleteClick(peminjaman)
+            }
         }
     }
 
@@ -23,16 +30,17 @@ class PeminjamanAdapter(private var peminjamanList: List<PeminjamanRelasi>) :
     }
 
     override fun onBindViewHolder(holder: PeminjamanViewHolder, position: Int) {
-        holder.bind(peminjamanList[position])
+        val peminjaman = peminjamanList[position]
+        holder.bind(peminjaman, onDeleteClick)
     }
 
     override fun getItemCount(): Int {
         return peminjamanList.size
     }
 
-    // Jika Anda ingin memperbarui data dalam adapter
-    fun updateData(newList: List<PeminjamanRelasi>) {
+    // New method to update the list
+    fun updatePeminjamanList(newList: List<Peminjaman>) {
         peminjamanList = newList
-        notifyDataSetChanged()
+        notifyDataSetChanged() // Notify the adapter to refresh the views
     }
 }
