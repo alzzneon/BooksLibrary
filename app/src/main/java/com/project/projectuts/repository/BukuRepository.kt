@@ -1,6 +1,8 @@
-package com.project.projectuts
+package com.project.projectuts.repository
 
 import androidx.lifecycle.LiveData
+import com.project.projectuts.model.Buku
+import com.project.projectuts.dao.BukuDao
 
 class BukuRepository(private val bukuDao: BukuDao) {
 

@@ -1,5 +1,7 @@
-package com.project.projectuts
+package com.project.projectuts.dao
 import androidx.room.*
+import com.project.projectuts.model.Peminjaman
+import com.project.projectuts.model.PeminjamanRelasi
 
 @Dao
 interface PeminjamanDao {

@@ -1,8 +1,10 @@
+package com.project.projectuts.viewModel
+
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.project.projectuts.Buku
-import com.project.projectuts.BukuRepository
+import com.project.projectuts.model.Buku
+import com.project.projectuts.repository.BukuRepository
 import kotlinx.coroutines.launch
 
 class BukuViewModel(private val bukuRepository: BukuRepository) : ViewModel() {

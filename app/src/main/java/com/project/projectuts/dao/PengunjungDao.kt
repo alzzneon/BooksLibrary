@@ -1,7 +1,8 @@
-package com.project.projectuts
+package com.project.projectuts.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import com.project.projectuts.model.Pengunjung
 
 @Dao
 interface PengunjungDao {

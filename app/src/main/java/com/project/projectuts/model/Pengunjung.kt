@@ -1,4 +1,4 @@
-package com.project.projectuts
+package com.project.projectuts.model
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 

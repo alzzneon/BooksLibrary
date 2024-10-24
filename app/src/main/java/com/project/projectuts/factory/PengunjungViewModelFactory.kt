@@ -1,7 +1,9 @@
-package com.project.projectuts
+package com.project.projectuts.factory
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.project.projectuts.repository.PengunjungRepository
+import com.project.projectuts.viewModel.PengunjungViewModel
 
 class PengunjungViewModelFactory(private val repository: PengunjungRepository) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {

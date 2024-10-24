@@ -20,16 +20,16 @@
         </activity>
 
         <activity
-            android:name=".AddBukuActivity"
+            android:name=".addActivity.AddBukuActivity"
             android:exported="true" />
         <activity
-            android:name=".AddPengunjungActivity"
+            android:name=".addActivity.AddPengunjungActivity"
             android:exported="true" />
         <activity
-            android:name=".ListBuku"
+            android:name=".list.ListBuku"
             android:exported="true" />
         <activity
-            android:name=".ListPengunjungActivity"
+            android:name=".list.ListPengunjungActivity"
             android:exported="true" />
 
     </application>

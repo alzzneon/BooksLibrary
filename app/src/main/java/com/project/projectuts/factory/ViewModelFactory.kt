@@ -1,8 +1,9 @@
-package com.project.projectuts
+package com.project.projectuts.factory
 
-import BukuViewModel
+import com.project.projectuts.viewModel.BukuViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.project.projectuts.repository.BukuRepository
 
 class ViewModelFactory(private val repository: BukuRepository) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {

@@ -1,4 +1,8 @@
-package com.project.projectuts
+package com.project.projectuts.repository
+
+import com.project.projectuts.model.Peminjaman
+import com.project.projectuts.model.PeminjamanRelasi
+import com.project.projectuts.dao.PeminjamanDao
 
 class PeminjamanRepository(private val peminjamanDao: PeminjamanDao) {
 

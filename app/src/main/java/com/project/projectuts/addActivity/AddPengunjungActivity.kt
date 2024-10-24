@@ -1,10 +1,15 @@
-package com.project.projectuts
+package com.project.projectuts.addActivity
 
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.project.projectuts.database.AplikasiDatabase
 import com.project.projectuts.databinding.ActivityAddPengunjungBinding
+import com.project.projectuts.factory.PengunjungViewModelFactory
+import com.project.projectuts.model.Pengunjung
+import com.project.projectuts.repository.PengunjungRepository
+import com.project.projectuts.viewModel.PengunjungViewModel
 
 class AddPengunjungActivity : AppCompatActivity() {
 

@@ -1,4 +1,4 @@
-package com.project.projectuts
+package com.project.projectuts.model
 
 data class PeminjamanRelasi(
     val id: Int,               // ID Peminjaman

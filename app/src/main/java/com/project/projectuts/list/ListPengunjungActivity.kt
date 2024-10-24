@@ -1,4 +1,4 @@
-package com.project.projectuts
+package com.project.projectuts.list
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,7 +6,14 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.project.projectuts.addActivity.AddPengunjungActivity
+import com.project.projectuts.database.AplikasiDatabase
+import com.project.projectuts.factory.PengunjungViewModelFactory
+import com.project.projectuts.R
+import com.project.projectuts.adapter.PengunjungAdapter
 import com.project.projectuts.databinding.ActivityListPengunjungBinding
+import com.project.projectuts.repository.PengunjungRepository
+import com.project.projectuts.viewModel.PengunjungViewModel
 
 class ListPengunjungActivity : AppCompatActivity() {
 

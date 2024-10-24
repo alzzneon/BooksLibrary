@@ -1,7 +1,9 @@
-package com.project.projectuts
+package com.project.projectuts.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.project.projectuts.model.Peminjaman
+import com.project.projectuts.repository.PeminjamanRepository
 import kotlinx.coroutines.launch
 
 class PeminjamanViewModel(private val repository: PeminjamanRepository) : ViewModel() {

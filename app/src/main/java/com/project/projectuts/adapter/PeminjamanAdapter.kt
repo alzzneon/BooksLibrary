@@ -1,8 +1,9 @@
-package com.project.projectuts
+package com.project.projectuts.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.project.projectuts.model.PeminjamanRelasi
 import com.project.projectuts.databinding.ItemPeminjamanBinding
 
 class PeminjamanAdapter(private var peminjamanList: List<PeminjamanRelasi>) :

@@ -1,9 +1,11 @@
-package com.project.projectuts
+package com.project.projectuts.addActivity
 
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.project.projectuts.databinding.ActivityAddPeminjamanBinding
+import com.project.projectuts.model.Peminjaman
+import com.project.projectuts.viewModel.PeminjamanViewModel
 
 class AddPeminjamanActivity : AppCompatActivity() {
 

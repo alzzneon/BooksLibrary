@@ -3,7 +3,10 @@ package com.project.projectuts
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.project.projectuts.addActivity.AddPeminjamanActivity
 import com.project.projectuts.databinding.ActivityMainBinding
+import com.project.projectuts.list.ListBuku
+import com.project.projectuts.list.ListPengunjungActivity
 
 class MainActivity : AppCompatActivity() {
 

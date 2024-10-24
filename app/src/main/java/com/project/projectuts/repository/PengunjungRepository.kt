@@ -1,6 +1,8 @@
-package com.project.projectuts
+package com.project.projectuts.repository
 
 import androidx.lifecycle.LiveData
+import com.project.projectuts.model.Pengunjung
+import com.project.projectuts.dao.PengunjungDao
 
 class PengunjungRepository(private val pengunjungDao: PengunjungDao) {
 
