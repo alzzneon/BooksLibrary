@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/editTextJudul"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Judul Buku" />
+
+    <EditText
+        android:id="@+id/editTextPengarang"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Pengarang" />
+
+    <EditText
+        android:id="@+id/editTextTahunTerbit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Tahun Terbit" />
+
+    <Button
+        android:id="@+id/buttonAddBuku"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tambah Buku" />
+</LinearLayout>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/editTextPengunjungId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="ID Pengunjung" />
+
+    <EditText
+        android:id="@+id/editTextBukuId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="ID Buku" />
+
+    <EditText
+        android:id="@+id/editTextTanggalPinjam"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Tanggal Pinjam" />
+
+    <Button
+        android:id="@+id/buttonAddPeminjaman"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tambah Peminjaman" />
+</LinearLayout>
