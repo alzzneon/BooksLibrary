@@ -22,7 +22,7 @@
         android:text="List Buku"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/imageViewBooks" />
 
     <Button
         android:id="@+id/buttonListPengunjung"
@@ -32,7 +32,7 @@
         android:text="List Pengunjung"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintTop_toBottomOf="@+id/imageViewBorrow" />
 
     <Button
         android:id="@+id/buttonAddPeminjaman"
@@ -42,10 +42,10 @@
         android:text="Add Peminjaman"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+        app:layout_constraintTop_toBottomOf="@+id/imageViewVisitors" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imageViewBooks"
         android:layout_width="130dp"
         android:layout_height="130dp"
         android:padding="5dp"
@@ -55,7 +55,7 @@
         app:srcCompat="@drawable/books" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/imageViewBorrow"
         android:layout_width="130dp"
         android:layout_height="130dp"
         android:padding="5dp"
@@ -66,11 +66,11 @@
         app:srcCompat="@drawable/visitors" />
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/imageViewVisitors"
         android:layout_width="130dp"
         android:layout_height="130dp"
         android:padding="5dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonListPengunjung"

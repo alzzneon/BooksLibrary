@@ -1,5 +1,6 @@
 package com.project.projectuts.addActivity
 
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -10,6 +11,7 @@ import com.project.projectuts.factory.PengunjungViewModelFactory
 import com.project.projectuts.model.Pengunjung
 import com.project.projectuts.repository.PengunjungRepository
 import com.project.projectuts.viewModel.PengunjungViewModel
+import java.util.Calendar
 
 class AddPengunjungActivity : AppCompatActivity() {
 
@@ -22,20 +24,39 @@ class AddPengunjungActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityAddPengunjungBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        binding.editTextTanggalKunjungan.setOnClickListener {
+            showDatePickerDialog()
+        }
 
         binding.buttonAddPengunjung.setOnClickListener {
             val nama = binding.editTextNamaPengunjung.text.toString()
             val tanggalKunjungan = binding.editTextTanggalKunjungan.text.toString()
 
-            // Validasi input sebelum menambahkan pengunjung
             if (nama.isNotBlank() && tanggalKunjungan.isNotBlank()) {
                 val pengunjung = Pengunjung(nama = nama, tanggalKunjungan = tanggalKunjungan)
                 viewModel.insertPengunjung(pengunjung)
-                finish() // Kembali ke layar sebelumnya
+                finish()
             } else {
-                // Tampilkan pesan kesalahan jika input tidak valid
                 Toast.makeText(this, "Nama dan Tanggal Kunjungan tidak boleh kosong", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    // Fungsi untuk menampilkan DatePickerDialog
+    private fun showDatePickerDialog() {
+        val calendar = Calendar.getInstance()
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH)
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+        val datePickerDialog = DatePickerDialog(
+            this,
+            { _, selectedYear, selectedMonth, selectedDay ->
+                val selectedDate = "$selectedDay/${selectedMonth + 1}/$selectedYear"
+                binding.editTextTanggalKunjungan.setText(selectedDate)
+            },
+            year, month, day
+        )
+        datePickerDialog.show()
     }
 }
