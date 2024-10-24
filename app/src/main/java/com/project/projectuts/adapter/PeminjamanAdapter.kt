@@ -13,7 +13,6 @@ class PeminjamanAdapter(
 
     class PeminjamanViewHolder(private val binding: ItemPeminjamanBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(peminjaman: Peminjaman, onDeleteClick: (Peminjaman) -> Unit) {
-            // Set the data in your view here
             binding.textViewNamaPeminjam.text = peminjaman.namaPeminjam
             binding.textViewBukuDipinjam.text = peminjaman.bukuDipinjam
             binding.textViewTanggalPinjam.text = peminjaman.tglDipinjam
@@ -34,13 +33,10 @@ class PeminjamanAdapter(
         holder.bind(peminjaman, onDeleteClick)
     }
 
-    override fun getItemCount(): Int {
-        return peminjamanList.size
-    }
+    override fun getItemCount(): Int = peminjamanList.size
 
-    // New method to update the list
     fun updatePeminjamanList(newList: List<Peminjaman>) {
         peminjamanList = newList
-        notifyDataSetChanged() // Notify the adapter to refresh the views
+        notifyDataSetChanged()
     }
 }

@@ -35,7 +35,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageViewBorrow" />
 
     <Button
-        android:id="@+id/buttonListeminjaman"
+        android:id="@+id/buttonListPeminjaman"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
