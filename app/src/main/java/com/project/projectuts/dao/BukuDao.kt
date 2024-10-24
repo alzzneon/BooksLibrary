@@ -11,7 +11,7 @@ interface BukuDao {
     fun getAllBuku(): LiveData<List<Buku>>
 
     @Insert
-    suspend fun insertBuku(buku: Buku) // Fungsi untuk memasukkan buku ke dalam database
+    suspend fun insertBuku(buku: Buku)
 
     @Update
     suspend fun updateBuku(buku: Buku)

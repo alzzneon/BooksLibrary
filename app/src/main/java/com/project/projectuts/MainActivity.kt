@@ -17,20 +17,17 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Listener untuk button List Buku
-        binding.buttonBuku.setOnClickListener {
+        binding.cardBuku.setOnClickListener {
             val intent = Intent(this, ListBuku::class.java)
             startActivity(intent)
         }
 
-        // Listener untuk button List Pengunjung
-        binding.buttonListPengunjung.setOnClickListener {
+        binding.cardPengunjung.setOnClickListener {
             val intent = Intent(this, ListPengunjungActivity::class.java)
             startActivity(intent)
         }
 
-        // Listener untuk button List Peminjaman
-        binding.buttonListPeminjaman.setOnClickListener {
+        binding.cardPeminjaman.setOnClickListener {
             startActivity(Intent(this, ListPeminjamanActivity::class.java))
         }
     }

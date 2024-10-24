@@ -21,6 +21,8 @@
         android:id="@+id/editTextTanggalPinjam"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:inputType="none"
+        android:focusable="false"
         android:hint="Tanggal Peminjaman" />
 
     <Button

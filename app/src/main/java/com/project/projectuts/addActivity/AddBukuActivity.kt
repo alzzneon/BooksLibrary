@@ -29,7 +29,7 @@ class AddBukuActivity : AppCompatActivity() {
 
             val buku = Buku(judul = judul, pengarang = pengarang, tahunTerbit = tahunTerbit)
             viewModel.insertBuku(buku)
-            finish() // Kembali ke layar sebelumnya
+            finish()
         }
     }
 }

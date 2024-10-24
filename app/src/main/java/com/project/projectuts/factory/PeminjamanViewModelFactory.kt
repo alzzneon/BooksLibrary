@@ -3,7 +3,7 @@ package com.project.projectuts.factory
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.project.projectuts.dao.PeminjamanDao
-import com.project.projectuts.viewmodel.PeminjamanViewModel
+import com.project.projectuts.viewModel.PeminjamanViewModel
 
 class PeminjamanViewModelFactory(private val peminjamanDao: PeminjamanDao) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {

@@ -1,5 +1,6 @@
 package com.project.projectuts.addActivity
 
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -7,8 +8,11 @@ import androidx.appcompat.app.AppCompatActivity
 import com.project.projectuts.databinding.ActivityAddPeminjamanBinding
 import com.project.projectuts.model.Peminjaman
 import com.project.projectuts.factory.PeminjamanViewModelFactory
-import com.project.projectuts.viewmodel.PeminjamanViewModel
 import com.project.projectuts.database.AplikasiDatabase
+import androidx.lifecycle.Observer
+import com.project.projectuts.viewModel.PeminjamanViewModel
+import java.util.Calendar
+
 
 class AddPeminjamanActivity : AppCompatActivity() {
 
@@ -34,11 +38,15 @@ class AddPeminjamanActivity : AppCompatActivity() {
                 editTextTanggalPinjam.text.toString().trim()
             )
         }
+        binding.editTextTanggalPinjam.setOnClickListener {
+            showDatePickerDialog()
+        }
 
-        viewModel.statusMessage.observe(this) { message ->
+        viewModel.statusMessage.observe(this, Observer { message ->
             Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
             clearInputs()
-        }
+            finish()
+        })
     }
 
     private fun addPeminjaman(namaPeminjam: String, bukuDipinjam: String, tglDipinjam: String) {
@@ -54,6 +62,22 @@ class AddPeminjamanActivity : AppCompatActivity() {
         )
 
         viewModel.addPeminjaman(peminjaman)
+    }
+    private fun showDatePickerDialog() {
+        val calendar = Calendar.getInstance()
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH)
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+        val datePickerDialog = DatePickerDialog(
+            this,
+            { _, selectedYear, selectedMonth, selectedDay ->
+                val selectedDate = "$selectedDay/${selectedMonth + 1}/$selectedYear"
+                binding.editTextTanggalPinjam.setText(selectedDate)
+            },
+            year, month, day
+        )
+        datePickerDialog.show()
     }
 
     private fun clearInputs() {

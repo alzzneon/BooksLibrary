@@ -42,7 +42,6 @@ class ListBuku : AppCompatActivity() {
             startActivity(intent)
         }
 
-        // Observe LiveData from the ViewModel
         viewModel.allBuku.observe(this, Observer { books ->
             books?.let {
                 bukuAdapter = BukuAdapter(it,

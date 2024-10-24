@@ -11,7 +11,6 @@ class BukuViewModel(private val bukuRepository: BukuRepository) : ViewModel() {
 
     val allBuku: LiveData<List<Buku>> = bukuRepository.getAllBuku()
 
-    // Fungsi untuk menambahkan buku ke dalam database
     fun insertBuku(buku: Buku) {
         viewModelScope.launch {
             bukuRepository.insertBuku(buku)

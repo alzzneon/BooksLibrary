@@ -1,4 +1,4 @@
-package com.project.projectuts.viewmodel
+package com.project.projectuts.viewModel
 
 import androidx.lifecycle.*
 import com.project.projectuts.dao.PeminjamanDao

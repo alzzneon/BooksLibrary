@@ -2,6 +2,7 @@ package com.project.projectuts.list
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -30,13 +31,15 @@ class ListPengunjungActivity : AppCompatActivity() {
 
         binding.recyclerViewPengunjung.layoutManager = LinearLayoutManager(this)
 
-        // Mengamati LiveData
         viewModel.allPengunjung.observe(this, { pengunjungList ->
             pengunjungAdapter = PengunjungAdapter(pengunjungList,
                 onDeleteClick = { pengunjung -> viewModel.deletePengunjung(pengunjung) }
             )
             binding.recyclerViewPengunjung.adapter = pengunjungAdapter
         })
+        viewModel.statusMessage.observe(this) { message ->
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+        }
 
         val addButton = findViewById<FloatingActionButton>(R.id.fab_add_pengunjung)
         addButton.setOnClickListener {

@@ -2,6 +2,7 @@ package com.project.projectuts.list
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,7 +13,7 @@ import com.project.projectuts.addActivity.AddPeminjamanActivity
 import com.project.projectuts.database.AplikasiDatabase
 import com.project.projectuts.databinding.ActivityListPeminjamanBinding
 import com.project.projectuts.factory.PeminjamanViewModelFactory
-import com.project.projectuts.viewmodel.PeminjamanViewModel
+import com.project.projectuts.viewModel.PeminjamanViewModel
 
 class ListPeminjamanActivity : AppCompatActivity() {
 
@@ -36,6 +37,9 @@ class ListPeminjamanActivity : AppCompatActivity() {
 
         viewModel.allPeminjaman.observe(this) { peminjamanList ->
             peminjamanAdapter.updatePeminjamanList(peminjamanList)
+        }
+        viewModel.statusMessage.observe(this) { message ->
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
         }
 
         val addButton = findViewById<FloatingActionButton>(R.id.fab_add_peminjam)

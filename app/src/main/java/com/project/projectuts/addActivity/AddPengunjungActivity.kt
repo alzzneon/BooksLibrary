@@ -11,6 +11,7 @@ import com.project.projectuts.factory.PengunjungViewModelFactory
 import com.project.projectuts.model.Pengunjung
 import com.project.projectuts.repository.PengunjungRepository
 import com.project.projectuts.viewModel.PengunjungViewModel
+import androidx.lifecycle.Observer
 import java.util.Calendar
 
 class AddPengunjungActivity : AppCompatActivity() {
@@ -40,9 +41,13 @@ class AddPengunjungActivity : AppCompatActivity() {
                 Toast.makeText(this, "Nama dan Tanggal Kunjungan tidak boleh kosong", Toast.LENGTH_SHORT).show()
             }
         }
+        viewModel.statusMessage.observe(this, Observer { message ->
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+            clearInputs()
+            finish()
+        })
     }
 
-    // Fungsi untuk menampilkan DatePickerDialog
     private fun showDatePickerDialog() {
         val calendar = Calendar.getInstance()
         val year = calendar.get(Calendar.YEAR)
@@ -58,5 +63,9 @@ class AddPengunjungActivity : AppCompatActivity() {
             year, month, day
         )
         datePickerDialog.show()
+    }
+    private fun clearInputs() {
+        binding.editTextNamaPengunjung.text.clear()
+        binding.editTextNamaPengunjung.text.clear()
     }
 }
