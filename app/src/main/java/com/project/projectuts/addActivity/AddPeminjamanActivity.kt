@@ -3,23 +3,18 @@ package com.project.projectuts.addActivity
 import android.app.DatePickerDialog
 import android.os.Bundle
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.project.projectuts.databinding.ActivityAddPeminjamanBinding
 import com.project.projectuts.model.Peminjaman
-import com.project.projectuts.factory.PeminjamanViewModelFactory
 import com.project.projectuts.database.AplikasiDatabase
-import androidx.lifecycle.Observer
 import com.project.projectuts.viewModel.PeminjamanViewModel
+import androidx.lifecycle.Observer
 import java.util.Calendar
-
 
 class AddPeminjamanActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAddPeminjamanBinding
-    private val viewModel: PeminjamanViewModel by viewModels {
-        PeminjamanViewModelFactory(AplikasiDatabase.getDatabase(this).peminjamanDao())
-    }
+    private lateinit var viewModel: PeminjamanViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +25,9 @@ class AddPeminjamanActivity : AppCompatActivity() {
         val editTextBukuDipinjam = binding.editTextBukuDipinjam
         val editTextTanggalPinjam = binding.editTextTanggalPinjam
         val buttonAddPeminjaman = binding.buttonAddPeminjaman
+
+        val peminjamanDao = AplikasiDatabase.getDatabase(this).peminjamanDao()
+        viewModel = PeminjamanViewModel(peminjamanDao)
 
         buttonAddPeminjaman.setOnClickListener {
             addPeminjaman(
@@ -63,6 +61,7 @@ class AddPeminjamanActivity : AppCompatActivity() {
 
         viewModel.addPeminjaman(peminjaman)
     }
+
     private fun showDatePickerDialog() {
         val calendar = Calendar.getInstance()
         val year = calendar.get(Calendar.YEAR)

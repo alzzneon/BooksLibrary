@@ -1,26 +1,25 @@
 package com.project.projectuts.addActivity
 
-import com.project.projectuts.viewModel.BukuViewModel
 import android.os.Bundle
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.project.projectuts.database.AplikasiDatabase
 import com.project.projectuts.databinding.ActivityAddBukuBinding
-import com.project.projectuts.factory.ViewModelFactory
 import com.project.projectuts.model.Buku
-import com.project.projectuts.repository.BukuRepository
+import com.project.projectuts.viewModel.BukuViewModel
 
 class AddBukuActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAddBukuBinding
-    private val viewModel: BukuViewModel by viewModels {
-        ViewModelFactory(BukuRepository(AplikasiDatabase.getDatabase(this).bukuDao()))
-    }
+
+    private lateinit var viewModel: BukuViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddBukuBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val bukuDao = AplikasiDatabase.getDatabase(this).bukuDao()
+        viewModel = BukuViewModel(bukuDao)
 
         binding.buttonAddBuku.setOnClickListener {
             val judul = binding.editTextJudul.text.toString()

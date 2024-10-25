@@ -4,28 +4,28 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.project.projectuts.model.Buku
-import com.project.projectuts.repository.BukuRepository
+import com.project.projectuts.dao.BukuDao // Pastikan DAO diimpor
 import kotlinx.coroutines.launch
 
-class BukuViewModel(private val bukuRepository: BukuRepository) : ViewModel() {
+class BukuViewModel(private val bukuDao: BukuDao) : ViewModel() {
 
-    val allBuku: LiveData<List<Buku>> = bukuRepository.getAllBuku()
+    val allBuku: LiveData<List<Buku>> = bukuDao.getAllBuku()
 
     fun insertBuku(buku: Buku) {
         viewModelScope.launch {
-            bukuRepository.insertBuku(buku)
+            bukuDao.insertBuku(buku)
         }
     }
 
     fun updateBuku(buku: Buku) {
         viewModelScope.launch {
-            bukuRepository.updateBuku(buku)
+            bukuDao.updateBuku(buku)
         }
     }
 
     fun deleteBuku(buku: Buku) {
         viewModelScope.launch {
-            bukuRepository.deleteBuku(buku)
+            bukuDao.deleteBuku(buku)
         }
     }
 }

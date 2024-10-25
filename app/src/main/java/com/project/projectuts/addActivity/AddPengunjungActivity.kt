@@ -3,13 +3,10 @@ package com.project.projectuts.addActivity
 import android.app.DatePickerDialog
 import android.os.Bundle
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.project.projectuts.database.AplikasiDatabase
 import com.project.projectuts.databinding.ActivityAddPengunjungBinding
-import com.project.projectuts.factory.PengunjungViewModelFactory
 import com.project.projectuts.model.Pengunjung
-import com.project.projectuts.repository.PengunjungRepository
 import com.project.projectuts.viewModel.PengunjungViewModel
 import androidx.lifecycle.Observer
 import java.util.Calendar
@@ -17,14 +14,16 @@ import java.util.Calendar
 class AddPengunjungActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAddPengunjungBinding
-    private val viewModel: PengunjungViewModel by viewModels {
-        PengunjungViewModelFactory(PengunjungRepository(AplikasiDatabase.getDatabase(this).pengunjungDao()))
-    }
+    private lateinit var viewModel: PengunjungViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddPengunjungBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val pengunjungDao = AplikasiDatabase.getDatabase(this).pengunjungDao()
+        viewModel = PengunjungViewModel(pengunjungDao)
+
         binding.editTextTanggalKunjungan.setOnClickListener {
             showDatePickerDialog()
         }
@@ -41,6 +40,7 @@ class AddPengunjungActivity : AppCompatActivity() {
                 Toast.makeText(this, "Nama dan Tanggal Kunjungan tidak boleh kosong", Toast.LENGTH_SHORT).show()
             }
         }
+
         viewModel.statusMessage.observe(this, Observer { message ->
             Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
             clearInputs()
@@ -64,8 +64,9 @@ class AddPengunjungActivity : AppCompatActivity() {
         )
         datePickerDialog.show()
     }
+
     private fun clearInputs() {
         binding.editTextNamaPengunjung.text.clear()
-        binding.editTextNamaPengunjung.text.clear()
+        binding.editTextTanggalKunjungan.text.clear()
     }
 }

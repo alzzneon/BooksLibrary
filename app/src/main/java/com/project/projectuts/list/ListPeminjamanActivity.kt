@@ -12,21 +12,21 @@ import com.project.projectuts.adapter.PeminjamanAdapter
 import com.project.projectuts.addActivity.AddPeminjamanActivity
 import com.project.projectuts.database.AplikasiDatabase
 import com.project.projectuts.databinding.ActivityListPeminjamanBinding
-import com.project.projectuts.factory.PeminjamanViewModelFactory
 import com.project.projectuts.viewModel.PeminjamanViewModel
 
 class ListPeminjamanActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityListPeminjamanBinding
     private lateinit var peminjamanAdapter: PeminjamanAdapter
-    private val viewModel: PeminjamanViewModel by viewModels {
-        PeminjamanViewModelFactory(AplikasiDatabase.getDatabase(this).peminjamanDao())
-    }
+    private lateinit var viewModel: PeminjamanViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityListPeminjamanBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val peminjamanDao = AplikasiDatabase.getDatabase(this).peminjamanDao()
+        viewModel = PeminjamanViewModel(peminjamanDao)
 
         binding.recyclerViewPeminjam.layoutManager = LinearLayoutManager(this)
 

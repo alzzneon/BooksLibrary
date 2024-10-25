@@ -1,40 +1,36 @@
 package com.project.projectuts.list
 
-import com.project.projectuts.viewModel.BukuViewModel
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.EditText
-import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.project.projectuts.addActivity.AddBukuActivity
 import com.project.projectuts.database.AplikasiDatabase
 import com.project.projectuts.R
-import com.project.projectuts.factory.ViewModelFactory
 import com.project.projectuts.adapter.BukuAdapter
 import com.project.projectuts.model.Buku
-import com.project.projectuts.repository.BukuRepository
-import com.project.projectuts.databinding.ActivityListBukuBinding // Import the generated binding class
+import com.project.projectuts.viewModel.BukuViewModel
+import com.project.projectuts.databinding.ActivityListBukuBinding
 
 class ListBuku : AppCompatActivity() {
 
-    private lateinit var binding: ActivityListBukuBinding // Create a binding variable
+    private lateinit var binding: ActivityListBukuBinding
     private lateinit var bukuAdapter: BukuAdapter
 
-    private val viewModel: BukuViewModel by viewModels {
-        ViewModelFactory(BukuRepository(AplikasiDatabase.getDatabase(this).bukuDao()))
-    }
+    private lateinit var viewModel: BukuViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityListBukuBinding.inflate(layoutInflater) // Inflate the binding
-        setContentView(binding.root) // Set the content view to the root of the binding
-
+        binding = ActivityListBukuBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         binding.rvListBuku.layoutManager = LinearLayoutManager(this)
+
+        val bukuDao = AplikasiDatabase.getDatabase(this).bukuDao()
+        viewModel = BukuViewModel(bukuDao)
 
         binding.tambahBuku.setOnClickListener {
             val intent = Intent(this, AddBukuActivity::class.java)
@@ -47,7 +43,7 @@ class ListBuku : AppCompatActivity() {
                     onEditClick = { buku -> showEditDialog(buku) },
                     onDeleteClick = { buku -> showDeleteConfirmationDialog(buku) }
                 )
-                binding.rvListBuku.adapter = bukuAdapter // Use binding to set the adapter
+                binding.rvListBuku.adapter = bukuAdapter
             }
         })
     }
