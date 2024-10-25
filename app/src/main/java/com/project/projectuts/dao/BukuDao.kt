@@ -10,6 +10,9 @@ interface BukuDao {
     @Query("SELECT * FROM buku")
     fun getAllBuku(): LiveData<List<Buku>>
 
+    @Query("SELECT * FROM buku WHERE id = :id")
+    suspend fun getBukuById(id: Int): Buku?
+
     @Insert
     suspend fun insertBuku(buku: Buku)
 
