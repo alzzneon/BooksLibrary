@@ -2,6 +2,7 @@ package com.project.projectuts.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import com.project.projectuts.model.Buku
 import com.project.projectuts.model.Pengunjung
 
 @Dao
@@ -15,5 +16,8 @@ interface PengunjungDao {
 
     @Query("SELECT * FROM pengunjung")
     fun getAllPengunjung(): LiveData<List<Pengunjung>>
+
+    @Query("SELECT * FROM pengunjung WHERE id = :id")
+    suspend fun getPengunjungById(id: Int): Pengunjung?
 
 }
