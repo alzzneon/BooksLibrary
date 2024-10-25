@@ -43,4 +43,20 @@ class BukuDaoTest {
         assertEquals(buku.pengarang, "Bima Cakra")
         assertEquals(buku.tahunTerbit, 2024)
     }
+    @Test
+    fun testDeleteBuku() = runBlocking {
+        val buku = Buku(judul = "Kotlin Programming", pengarang = "Bima Cakra", tahunTerbit = 2024)
+        bukuDao.insertBuku(buku)
+
+        bukuDao.deleteBuku(buku)
+    }
+    @Test
+    fun testUpdateBuku() = runBlocking {
+        val buku = Buku(judul = "Kotlin Programming", pengarang = "Bima Cakra", tahunTerbit = 2024)
+        bukuDao.insertBuku(buku)
+
+        val updatedBuku = buku.copy(judul = "Kitab Jarkom")
+        bukuDao.updateBuku(updatedBuku)
+
+    }
     }
