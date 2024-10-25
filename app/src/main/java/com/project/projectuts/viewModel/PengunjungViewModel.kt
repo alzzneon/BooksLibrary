@@ -16,14 +16,14 @@ class PengunjungViewModel(private val repository: PengunjungRepository) : ViewMo
     fun insertPengunjung(pengunjung: Pengunjung) {
         viewModelScope.launch {
             repository.insertPengunjung(pengunjung)
-            statusMessage.value = "Peminjaman berhasil ditambahkan"
+            statusMessage.value = "Pengunjung berhasil ditambahkan"
         }
     }
 
     fun deletePengunjung(pengunjung: Pengunjung) {
         viewModelScope.launch {
             repository.deletePengunjung(pengunjung)
-            statusMessage.value = "Peminjaman berhasil dihapus"
+            statusMessage.value = "Pengunjung berhasil dihapus"
         }
     }
 }
