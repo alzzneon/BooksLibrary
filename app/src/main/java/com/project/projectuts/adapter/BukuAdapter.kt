@@ -1,12 +1,9 @@
 package com.project.projectuts.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.project.projectuts.R
+import com.project.projectuts.databinding.ListBukuBinding
 import com.project.projectuts.model.Buku
 
 class BukuAdapter(
@@ -15,25 +12,24 @@ class BukuAdapter(
     private val onDeleteClick: (Buku) -> Unit
 ) : RecyclerView.Adapter<BukuAdapter.BukuViewHolder>() {
 
-    class BukuViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val tvJudul: TextView = itemView.findViewById(R.id.tvJudulBuku)
-        val tvPengarang: TextView = itemView.findViewById(R.id.tvPengarangBuku)
-        val ibEdit: ImageView = itemView.findViewById(R.id.ibEdit)
-        val ibDelete: ImageView = itemView.findViewById(R.id.ibDelete)
+    class BukuViewHolder(private val binding: ListBukuBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(buku: Buku, onEditClick: (Buku) -> Unit, onDeleteClick: (Buku) -> Unit) {
+            binding.tvJudulBuku.text = buku.judul
+            binding.tvPengarangBuku.text = buku.pengarang
+
+            binding.ibEdit.setOnClickListener { onEditClick(buku) }
+            binding.ibDelete.setOnClickListener { onDeleteClick(buku) }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BukuViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_buku, parent, false)
-        return BukuViewHolder(view)
+        val binding = ListBukuBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return BukuViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: BukuViewHolder, position: Int) {
         val buku = bukuList[position]
-        holder.tvJudul.text = buku.judul
-        holder.tvPengarang.text = buku.pengarang
-
-        holder.ibEdit.setOnClickListener { onEditClick(buku) }
-        holder.ibDelete.setOnClickListener { onDeleteClick(buku) }
+        holder.bind(buku, onEditClick, onDeleteClick)
     }
 
     override fun getItemCount(): Int {

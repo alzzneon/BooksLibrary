@@ -10,7 +10,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.project.projectuts.addActivity.AddBukuActivity
 import com.project.projectuts.database.AplikasiDatabase
@@ -19,10 +18,11 @@ import com.project.projectuts.factory.ViewModelFactory
 import com.project.projectuts.adapter.BukuAdapter
 import com.project.projectuts.model.Buku
 import com.project.projectuts.repository.BukuRepository
+import com.project.projectuts.databinding.ActivityListBukuBinding // Import the generated binding class
 
 class ListBuku : AppCompatActivity() {
 
-    private lateinit var recyclerView: RecyclerView
+    private lateinit var binding: ActivityListBukuBinding // Create a binding variable
     private lateinit var bukuAdapter: BukuAdapter
 
     private val viewModel: BukuViewModel by viewModels {
@@ -31,13 +31,12 @@ class ListBuku : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_list_buku)
+        binding = ActivityListBukuBinding.inflate(layoutInflater) // Inflate the binding
+        setContentView(binding.root) // Set the content view to the root of the binding
 
-        recyclerView = findViewById(R.id.rv_listBuku)
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        binding.rvListBuku.layoutManager = LinearLayoutManager(this)
 
-        val addButton = findViewById<FloatingActionButton>(R.id.tambahBuku)
-        addButton.setOnClickListener {
+        binding.tambahBuku.setOnClickListener {
             val intent = Intent(this, AddBukuActivity::class.java)
             startActivity(intent)
         }
@@ -48,7 +47,7 @@ class ListBuku : AppCompatActivity() {
                     onEditClick = { buku -> showEditDialog(buku) },
                     onDeleteClick = { buku -> showDeleteConfirmationDialog(buku) }
                 )
-                recyclerView.adapter = bukuAdapter
+                binding.rvListBuku.adapter = bukuAdapter // Use binding to set the adapter
             }
         })
     }
