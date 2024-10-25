@@ -34,7 +34,7 @@ class PengunjungDaoTest {
         database.close()
     }
     @Test
-    fun testInsertBuku() = runBlocking {
+    fun testInsertPengunjung() = runBlocking {
         val pengunjung = Pengunjung(nama= "Alya Azzahra", tanggalKunjungan = "2024")
 
         pengunjungDao.insertPengunjung(pengunjung)
@@ -43,7 +43,7 @@ class PengunjungDaoTest {
         assertEquals(pengunjung.tanggalKunjungan, "2024")
     }
     @Test
-    fun testDeleteBuku() = runBlocking {
+    fun testDeletePengunjung() = runBlocking {
         val pengunjung = Pengunjung(id = 1, nama= "Alya Azzahra", tanggalKunjungan = "2024")
         pengunjungDao.insertPengunjung(pengunjung)
 
@@ -55,5 +55,18 @@ class PengunjungDaoTest {
 
         val deleteBuku = pengunjungDao.getPengunjungById(pengunjung.id)
         assertNull(deleteBuku)
+    }
+    @Test
+    fun testUpdatePengunjung() = runBlocking {
+        val pengunjung = Pengunjung(id = 1, nama= "Mohamad Arung", tanggalKunjungan = "2024")
+        pengunjungDao.insertPengunjung(pengunjung)
+        val insertedPengunjungId = pengunjung.id
+
+        val updatedPengunjung = pengunjung.copy(nama = "Alya Azzahra")
+        pengunjungDao.updatePengunjung(updatedPengunjung)
+
+        val retrievedPengunjung = pengunjungDao.getPengunjungById(insertedPengunjungId)
+        assertEquals("Alya Azzahra", retrievedPengunjung?.nama)
+        assertEquals("2024", retrievedPengunjung?.tanggalKunjungan)
     }
 }

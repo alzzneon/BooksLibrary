@@ -11,6 +11,9 @@ interface PengunjungDao {
     @Insert
     suspend fun insertPengunjung(pengunjung: Pengunjung)
 
+    @Update
+    suspend fun updatePengunjung(pengunjung: Pengunjung)
+
     @Delete
     suspend fun deletePengunjung(pengunjung: Pengunjung)
 

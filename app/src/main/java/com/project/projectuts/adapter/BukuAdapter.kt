@@ -19,6 +19,8 @@ class BukuAdapter(
 
             binding.ibEdit.setOnClickListener { onEditClick(buku) }
             binding.ibDelete.setOnClickListener { onDeleteClick(buku) }
+            //binding.btnDetail.se
+
         }
     }
 
