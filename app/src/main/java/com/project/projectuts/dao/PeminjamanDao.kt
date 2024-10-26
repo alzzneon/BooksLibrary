@@ -7,6 +7,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import androidx.room.Delete
+import com.project.projectuts.model.Buku
 import com.project.projectuts.model.Peminjaman
 
 @Dao
@@ -22,4 +23,8 @@ interface PeminjamanDao {
 
     @Query("SELECT * FROM peminjam ORDER BY id ASC")
     fun getAllPeminjaman(): LiveData<List<Peminjaman>>
+
+    @Query("SELECT * FROM peminjam WHERE id = :id")
+    suspend fun getPeminjamanByid(id: Int): Peminjaman?
+
 }
