@@ -30,14 +30,15 @@ class ListPeminjamanActivity : AppCompatActivity() {
 
         binding.recyclerViewPeminjam.layoutManager = LinearLayoutManager(this)
 
-        peminjamanAdapter = PeminjamanAdapter(emptyList()) { peminjaman ->
+        peminjamanAdapter = PeminjamanAdapter { peminjaman ->
             viewModel.deletePeminjaman(peminjaman)
         }
         binding.recyclerViewPeminjam.adapter = peminjamanAdapter
 
         viewModel.allPeminjaman.observe(this) { peminjamanList ->
-            peminjamanAdapter.updatePeminjamanList(peminjamanList)
+            peminjamanAdapter.submitList(peminjamanList)
         }
+
         viewModel.statusMessage.observe(this) { message ->
             Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
         }

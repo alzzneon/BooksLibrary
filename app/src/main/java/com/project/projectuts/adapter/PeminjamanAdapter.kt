@@ -2,14 +2,16 @@ package com.project.projectuts.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.project.projectuts.databinding.ItemPeminjamanBinding
 import com.project.projectuts.model.Peminjaman
 
 class PeminjamanAdapter(
-    private var peminjamanList: List<Peminjaman>,
+
     private val onDeleteClick: (Peminjaman) -> Unit
-) : RecyclerView.Adapter<PeminjamanAdapter.PeminjamanViewHolder>() {
+) : ListAdapter<Peminjaman, PeminjamanAdapter.PeminjamanViewHolder>(RowCallbackAdapter()) {
 
     class PeminjamanViewHolder(private val binding: ItemPeminjamanBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(peminjaman: Peminjaman, onDeleteClick: (Peminjaman) -> Unit) {
@@ -29,14 +31,17 @@ class PeminjamanAdapter(
     }
 
     override fun onBindViewHolder(holder: PeminjamanViewHolder, position: Int) {
-        val peminjaman = peminjamanList[position]
+        val peminjaman = getItem(position)
         holder.bind(peminjaman, onDeleteClick)
     }
 
-    override fun getItemCount(): Int = peminjamanList.size
+    class RowCallbackAdapter: DiffUtil.ItemCallback<Peminjaman>() {
+        override fun areItemsTheSame(oldItem: Peminjaman, newItem: Peminjaman): Boolean {
+            return oldItem.id == newItem.id
+        }
 
-    fun updatePeminjamanList(newList: List<Peminjaman>) {
-        peminjamanList = newList
-        notifyDataSetChanged()
+        override fun areContentsTheSame(oldItem: Peminjaman, newItem: Peminjaman): Boolean {
+            return  oldItem == newItem
+        }
     }
 }

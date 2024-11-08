@@ -31,18 +31,14 @@ class ListPengunjungActivity : AppCompatActivity() {
         binding.recyclerViewPengunjung.layoutManager = LinearLayoutManager(this)
 
         viewModel.allPengunjung.observe(this) { pengunjungList ->
-            pengunjungAdapter = PengunjungAdapter(pengunjungList,
-                onDeleteClick = { pengunjung -> viewModel.deletePengunjung(pengunjung) }
-            )
-            binding.recyclerViewPengunjung.adapter = pengunjungAdapter
+            pengunjungAdapter.submitList(pengunjungList)
         }
 
         viewModel.statusMessage.observe(this) { message ->
             Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
         }
 
-        val addButton = findViewById<FloatingActionButton>(R.id.fab_add_pengunjung)
-        addButton.setOnClickListener {
+        binding.fabAddPengunjung.setOnClickListener {
             startActivity(Intent(this, AddPengunjungActivity::class.java))
         }
     }
