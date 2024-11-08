@@ -7,7 +7,9 @@ import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.project.projectuts.addActivity.AddBukuActivity
 import com.project.projectuts.database.AplikasiDatabase
 import com.project.projectuts.R
@@ -32,6 +34,11 @@ class ListBuku : AppCompatActivity() {
         val bukuDao = AplikasiDatabase.getDatabase(this).bukuDao()
         viewModel = BukuViewModel(bukuDao)
 
+        bukuAdapter = BukuAdapter(
+            onEditClick = { buku -> showEditDialog(buku) },
+            onDeleteClick = { buku -> showDeleteConfirmationDialog(buku) }
+        )
+
         binding.tambahBuku.setOnClickListener {
             val intent = Intent(this, AddBukuActivity::class.java)
             startActivity(intent)
@@ -39,11 +46,7 @@ class ListBuku : AppCompatActivity() {
 
         viewModel.allBuku.observe(this, Observer { books ->
             books?.let {
-                bukuAdapter = BukuAdapter(it,
-                    onEditClick = { buku -> showEditDialog(buku) },
-                    onDeleteClick = { buku -> showDeleteConfirmationDialog(buku) }
-                )
-                binding.rvListBuku.adapter = bukuAdapter
+                bukuAdapter.submitList(it)
             }
         })
     }
@@ -67,7 +70,8 @@ class ListBuku : AppCompatActivity() {
                     id = buku.id,
                     judul = edtJudul.text.toString(),
                     pengarang = edtPengarang.text.toString(),
-                    tahunTerbit = edtTahunTerbit.text.toString().toInt()
+                    tahunTerbit = edtTahunTerbit.text.toString().toInt(),
+                    tanggalDitambahkan = buku.tanggalDitambahkan
                 )
                 viewModel.updateBuku(updatedBuku)
                 dialog.dismiss()

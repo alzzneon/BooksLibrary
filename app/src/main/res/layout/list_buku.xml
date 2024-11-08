@@ -34,6 +34,22 @@
             app:layout_constraintTop_toBottomOf="@id/tvJudulBuku"
             app:layout_constraintStart_toStartOf="parent"/>
 
+        <TextView
+            android:id="@+id/tvTanggalDitambahkan"
+            android:layout_width="232dp"
+            android:layout_height="19dp"
+            android:layout_marginTop="12dp"
+            android:text="@{buku.tanggalDitambahkan}"
+            android:textColor="#757575"
+            android:textSize="14sp"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/tvPengarangBuku"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/tvPengarangBuku"
+            app:layout_constraintTop_toBottomOf="@id/tvPengarangBuku"
+            app:layout_constraintVertical_bias="1.0" />
+
         <ImageView
             android:id="@+id/ibEdit"
             android:layout_width="wrap_content"
