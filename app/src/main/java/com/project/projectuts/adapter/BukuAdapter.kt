@@ -1,10 +1,15 @@
 package com.project.projectuts.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.project.projectuts.R
+import com.project.projectuts.databinding.HeaderItemBinding
 import com.project.projectuts.databinding.ListBukuBinding
 import com.project.projectuts.extension.setDate
 import com.project.projectuts.model.Buku
@@ -12,17 +17,10 @@ import com.project.projectuts.model.Buku
 class BukuAdapter(
     private val onEditClick: (Buku) -> Unit,
     private val onDeleteClick: (Buku) -> Unit
-) : ListAdapter<Buku, BukuAdapter.BukuViewHolder>(RowCallback()) {
+) : ListAdapter<Buku, RecyclerView.ViewHolder>(RowCallback()) {
+    private var dataGenre = arrayListOf<String>()
 
     class BukuViewHolder(private val binding: ListBukuBinding) : RecyclerView.ViewHolder(binding.root) {
-        companion object {
-            fun from(parent: ViewGroup): BukuViewHolder {
-                val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = ListBukuBinding.inflate(layoutInflater, parent, false)
-                return BukuViewHolder(binding)
-            }
-        }
-
         fun bind(buku: Buku, onEditClick: (Buku) -> Unit, onDeleteClick: (Buku) -> Unit) {
             binding.tvJudulBuku.text = buku.judul
             binding.tvPengarangBuku.text = buku.pengarang
@@ -31,15 +29,52 @@ class BukuAdapter(
             binding.ibEdit.setOnClickListener { onEditClick(buku) }
             binding.ibDelete.setOnClickListener { onDeleteClick(buku) }
         }
+
+        companion object {
+            fun from(parent: ViewGroup): BukuViewHolder {
+                val layoutInflater = LayoutInflater.from(parent.context)
+                val binding = ListBukuBinding.inflate(layoutInflater, parent, false)
+                return BukuViewHolder(binding)
+            }
+        }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BukuViewHolder {
-        return BukuViewHolder.from(parent)
+    class HeaderViewHolder(private val binding: HeaderItemBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(genre: String) {
+            binding.headerGenre.text = genre
+        }
     }
 
-    override fun onBindViewHolder(holder: BukuViewHolder, position: Int) {
-        val buku = getItem(position)
-        holder.bind(buku, onEditClick, onDeleteClick)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return when (viewType) {
+            ITEM_VIEW_TYPE.BUKU.ordinal -> BukuViewHolder.from(parent)
+            ITEM_VIEW_TYPE.GENRE.ordinal -> {
+                val headerGenreBinding = HeaderItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                HeaderViewHolder(headerGenreBinding)
+            }
+            else -> BukuViewHolder.from(parent)
+        }
+    }
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        when (holder) {
+            is BukuViewHolder -> {
+                val buku = getItem(position) as Buku
+                holder.bind(buku, onEditClick, onDeleteClick)
+            }
+            is HeaderViewHolder -> {
+                val genreBuku = dataGenre[position]
+                holder.bind(genreBuku)
+            }
+        }
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return when (getItem(position)){
+            is Buku -> ITEM_VIEW_TYPE.BUKU.ordinal
+            is Buku -> ITEM_VIEW_TYPE.GENRE.ordinal
+            else -> ITEM_VIEW_TYPE.HEADER.ordinal
+        }
     }
 
     class RowCallback : DiffUtil.ItemCallback<Buku>() {
@@ -51,4 +86,6 @@ class BukuAdapter(
             return oldItem == newItem
         }
     }
+
+    enum class ITEM_VIEW_TYPE{HEADER, BUKU, GENRE}
 }
