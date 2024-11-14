@@ -29,6 +29,16 @@ class   ListBuku : AppCompatActivity() {
         setContentView(binding.root)
         binding.rvListBuku.layoutManager = LinearLayoutManager(this)
 
+        // Inisialisasi bukuAdapter dengan onDeleteClick
+        bukuAdapter = BukuAdapter(
+            onEditClick = { buku ->
+                showEditDialog(buku)
+            },
+            onDeleteClick = { buku ->
+                showDeleteConfirmationDialog(buku)
+            }
+        )
+
         val bukuDao = AplikasiDatabase.getDatabase(this).bukuDao()
         viewModel = BukuViewModel(bukuDao)
 
@@ -39,14 +49,12 @@ class   ListBuku : AppCompatActivity() {
 
         viewModel.allBuku.observe(this, Observer { books ->
             books?.let {
-                bukuAdapter = BukuAdapter(it,
-                    onEditClick = { buku -> showEditDialog(buku) },
-                    onDeleteClick = { buku -> showDeleteConfirmationDialog(buku) }
-                )
+                bukuAdapter.submitList(it)
                 binding.rvListBuku.adapter = bukuAdapter
             }
         })
     }
+
 
     private fun showEditDialog(buku: Buku) {
         val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_edit, null)
@@ -67,7 +75,8 @@ class   ListBuku : AppCompatActivity() {
                     id = buku.id,
                     judul = edtJudul.text.toString(),
                     pengarang = edtPengarang.text.toString(),
-                    tahunTerbit = edtTahunTerbit.text.toString().toInt()
+                    tahunTerbit = edtTahunTerbit.text.toString().toInt(),
+                    tanggalDitambahkan = buku.tanggalDitambahkan
                 )
                 viewModel.updateBuku(updatedBuku)
                 dialog.dismiss()
