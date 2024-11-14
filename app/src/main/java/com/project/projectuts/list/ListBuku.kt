@@ -7,9 +7,7 @@ import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.project.projectuts.addActivity.AddBukuActivity
 import com.project.projectuts.database.AplikasiDatabase
 import com.project.projectuts.R
@@ -18,7 +16,7 @@ import com.project.projectuts.model.Buku
 import com.project.projectuts.viewModel.BukuViewModel
 import com.project.projectuts.databinding.ActivityListBukuBinding
 
-class ListBuku : AppCompatActivity() {
+class   ListBuku : AppCompatActivity() {
 
     private lateinit var binding: ActivityListBukuBinding
     private lateinit var bukuAdapter: BukuAdapter
@@ -34,11 +32,6 @@ class ListBuku : AppCompatActivity() {
         val bukuDao = AplikasiDatabase.getDatabase(this).bukuDao()
         viewModel = BukuViewModel(bukuDao)
 
-        bukuAdapter = BukuAdapter(
-            onEditClick = { buku -> showEditDialog(buku) },
-            onDeleteClick = { buku -> showDeleteConfirmationDialog(buku) }
-        )
-
         binding.tambahBuku.setOnClickListener {
             val intent = Intent(this, AddBukuActivity::class.java)
             startActivity(intent)
@@ -46,7 +39,11 @@ class ListBuku : AppCompatActivity() {
 
         viewModel.allBuku.observe(this, Observer { books ->
             books?.let {
-                bukuAdapter.submitList(it)
+                bukuAdapter = BukuAdapter(it,
+                    onEditClick = { buku -> showEditDialog(buku) },
+                    onDeleteClick = { buku -> showDeleteConfirmationDialog(buku) }
+                )
+                binding.rvListBuku.adapter = bukuAdapter
             }
         })
     }
@@ -70,8 +67,7 @@ class ListBuku : AppCompatActivity() {
                     id = buku.id,
                     judul = edtJudul.text.toString(),
                     pengarang = edtPengarang.text.toString(),
-                    tahunTerbit = edtTahunTerbit.text.toString().toInt(),
-                    tanggalDitambahkan = buku.tanggalDitambahkan
+                    tahunTerbit = edtTahunTerbit.text.toString().toInt()
                 )
                 viewModel.updateBuku(updatedBuku)
                 dialog.dismiss()
