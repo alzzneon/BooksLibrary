@@ -28,7 +28,13 @@ class ListPengunjungActivity : AppCompatActivity() {
         val pengunjungDao = AplikasiDatabase.getDatabase(this).pengunjungDao()
         viewModel = PengunjungViewModel(pengunjungDao)
 
+        // Inisialisasi pengunjungAdapter
+        pengunjungAdapter = PengunjungAdapter { pengunjung ->
+            // Implementasi untuk delete atau tindakan lainnya
+            viewModel.deletePengunjung(pengunjung)
+        }
         binding.recyclerViewPengunjung.layoutManager = LinearLayoutManager(this)
+        binding.recyclerViewPengunjung.adapter = pengunjungAdapter
 
         viewModel.allPengunjung.observe(this) { pengunjungList ->
             pengunjungAdapter.submitList(pengunjungList)
