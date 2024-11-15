@@ -12,6 +12,13 @@
         android:hint="Judul Buku" />
 
     <EditText
+        android:id="@+id/edt_genre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Genre"
+        />
+
+    <EditText
         android:id="@+id/edt_pengarang"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

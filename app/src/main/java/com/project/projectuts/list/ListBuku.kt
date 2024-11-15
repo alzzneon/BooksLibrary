@@ -60,10 +60,12 @@ class   ListBuku : AppCompatActivity() {
         val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_edit, null)
 
         val edtJudul = dialogView.findViewById<EditText>(R.id.edt_judul)
+        val edtGenre = dialogView.findViewById<EditText>(R.id.edt_genre)
         val edtPengarang = dialogView.findViewById<EditText>(R.id.edt_pengarang)
         val edtTahunTerbit = dialogView.findViewById<EditText>(R.id.edt_tahunTerbit)
 
         edtJudul.setText(buku.judul)
+        edtGenre.setText(buku.genre)
         edtPengarang.setText(buku.pengarang)
         edtTahunTerbit.setText(buku.tahunTerbit.toString())
 
@@ -73,6 +75,7 @@ class   ListBuku : AppCompatActivity() {
             .setPositiveButton("Simpan") { dialog, _ ->
                 val updatedBuku = Buku(
                     id = buku.id,
+                    genre = edtGenre.text.toString(),
                     judul = edtJudul.text.toString(),
                     pengarang = edtPengarang.text.toString(),
                     tahunTerbit = edtTahunTerbit.text.toString().toInt(),

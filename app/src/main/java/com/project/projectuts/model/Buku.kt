@@ -7,6 +7,7 @@ import androidx.room.PrimaryKey
 data class Buku(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val judul: String,
+    val genre: String,
     val pengarang: String,
     val tahunTerbit: Int,
     val tanggalDitambahkan : Long
