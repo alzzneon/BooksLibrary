@@ -2,7 +2,6 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
@@ -12,88 +11,65 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp">
+        android:padding="16dp">
 
-        <!-- Cover Buku -->
-        <ImageView
-            android:id="@+id/ivCoverBuku"
-            android:layout_width="80dp"
-            android:layout_height="120dp"
-            android:scaleType="centerCrop"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:contentDescription="Cover Buku"/>
-
-        <!-- Container untuk informasi buku -->
         <TextView
             android:id="@+id/tvJudulBuku"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Judul Buku"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textStyle="bold"
-            android:textColor="@color/black"
-            android:maxLines="2"
-            android:ellipsize="end"
-            android:layout_marginStart="16dp"
-            app:layout_constraintStart_toEndOf="@id/ivCoverBuku"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
         <TextView
             android:id="@+id/tvPengarangBuku"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="Nama Pengarang"
+            android:text="Pengarang"
             android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/tvJudulBuku"
-            app:layout_constraintTop_toBottomOf="@+id/tvJudulBuku" />
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@id/tvJudulBuku"
+            app:layout_constraintStart_toStartOf="parent"/>
 
         <TextView
             android:id="@+id/tvTahunTerbit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="2024"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="@+id/tvPengarangBuku"
-            app:layout_constraintTop_toBottomOf="@+id/tvPengarangBuku" />
-
-        <TextView
-            android:id="@+id/tvTanggalDitambahkan"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="232dp"
+            android:layout_height="19dp"
             android:layout_marginTop="12dp"
-            android:text="Ditambahkan: 14 Nov 2024"
+            android:text="@{buku.tanggalDitambahkan}"
             android:textColor="#757575"
-            android:textSize="12sp"
-            app:layout_constraintStart_toStartOf="@+id/tvTahunTerbit"
-            app:layout_constraintTop_toBottomOf="@+id/tvTahunTerbit" />
+            android:textSize="14sp"
 
-        <ImageButton
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/tvPengarangBuku"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/tvPengarangBuku"
+            app:layout_constraintTop_toBottomOf="@id/tvPengarangBuku"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <ImageView
             android:id="@+id/ibEdit"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:src="@drawable/ic_editbuku"
+            android:padding="18dp"
             android:contentDescription="Edit"
-            android:padding="8dp"
-            app:layout_constraintEnd_toStartOf="@id/ibDelete"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintTop_toTopOf="@id/tvPengarangBuku"
+            app:layout_constraintBottom_toBottomOf="@id/tvPengarangBuku"
+            app:layout_constraintEnd_toStartOf="@id/ibDelete"/>
 
-        <ImageButton
+        <ImageView
             android:id="@+id/ibDelete"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:src="@drawable/ic_delbuku"
+            android:padding="18dp"
             android:contentDescription="Delete"
-            android:padding="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
-
+            app:layout_constraintTop_toTopOf="@id/ibEdit"
+            app:layout_constraintBottom_toBottomOf="@id/ibEdit"
+            app:layout_constraintEnd_toEndOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

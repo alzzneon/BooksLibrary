@@ -23,12 +23,11 @@ class AddBukuActivity : AppCompatActivity() {
 
         binding.buttonAddBuku.setOnClickListener {
             val judul = binding.editTextJudul.text.toString()
-            val genre = binding.editTextGenre.text.toString()
             val pengarang = binding.editTextPengarang.text.toString()
             val tahunTerbit = binding.editTextTahunTerbit.text.toString().toIntOrNull() ?: 0
             val tanggalDitambahkan = System.currentTimeMillis()
 
-            val buku = Buku(judul = judul, genre = genre, pengarang = pengarang, tahunTerbit = tahunTerbit, tanggalDitambahkan = tanggalDitambahkan)
+            val buku = Buku(judul = judul, pengarang = pengarang, tahunTerbit = tahunTerbit, tanggalDitambahkan = tanggalDitambahkan)
             viewModel.insertBuku(buku)
             finish()
         }

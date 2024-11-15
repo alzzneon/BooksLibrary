@@ -10,5 +10,5 @@ data class Buku(
     val genre: String,
     val pengarang: String,
     val tahunTerbit: Int,
-    val tanggalDitambahkan : Long
+    
 )
