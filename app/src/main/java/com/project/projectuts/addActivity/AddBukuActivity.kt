@@ -10,7 +10,6 @@ import com.project.projectuts.viewModel.BukuViewModel
 class AddBukuActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAddBukuBinding
-
     private lateinit var viewModel: BukuViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,12 +21,26 @@ class AddBukuActivity : AppCompatActivity() {
         viewModel = BukuViewModel(bukuDao)
 
         binding.buttonAddBuku.setOnClickListener {
-            val judul = binding.editTextJudul.text.toString()
+            val judul = binding.editTextJudulBuku.text.toString()
+            val genre = binding.editTextGenre.text.toString()
             val pengarang = binding.editTextPengarang.text.toString()
-            val tahunTerbit = binding.editTextTahunTerbit.text.toString().toIntOrNull() ?: 0
-            val tanggalDitambahkan = System.currentTimeMillis()
+            val tahunTerbitString = binding.editTextTahunTerbit.text.toString()
 
-            val buku = Buku(judul = judul, pengarang = pengarang, tahunTerbit = tahunTerbit, tanggalDitambahkan = tanggalDitambahkan)
+            if (judul.isEmpty() || genre.isEmpty() || pengarang.isEmpty() || tahunTerbitString.isEmpty()) {
+                binding.editTextJudulBuku.error = "Judul tidak boleh kosong"
+                binding.editTextGenre.error = "Genre tidak boleh kosong"
+                binding.editTextPengarang.error = "Pengarang tidak boleh kosong"
+                binding.editTextTahunTerbit.error = "Tahun terbit tidak boleh kosong"
+                return@setOnClickListener
+            }
+
+            val tahunTerbit = tahunTerbitString.toIntOrNull()
+            if (tahunTerbit == null || tahunTerbit <= 0) {
+                binding.editTextTahunTerbit.error = "Tahun terbit tidak valid"
+                return@setOnClickListener
+            }
+
+            val buku = Buku(judul = judul, genre = genre, pengarang = pengarang, tahunTerbit = tahunTerbit)
             viewModel.insertBuku(buku)
             finish()
         }

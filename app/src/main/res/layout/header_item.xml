@@ -9,7 +9,7 @@
         android:id="@+id/headerGenre"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Select Genre"
+        android:text="Genre"
         android:textSize="24sp"
         android:textStyle="bold"
         android:padding="8dp"
@@ -17,16 +17,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Spinner
-        android:id="@+id/spinnerGenre"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:spinnerMode="dropdown"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="TouchTargetSizeCheck" />
+<!--    <Spinner-->
+<!--        android:id="@+id/spinnerGenre"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:padding="8dp"-->
+<!--        android:spinnerMode="dropdown"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        tools:ignore="TouchTargetSizeCheck" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

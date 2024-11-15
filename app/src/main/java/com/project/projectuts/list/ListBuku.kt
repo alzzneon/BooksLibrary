@@ -16,11 +16,10 @@ import com.project.projectuts.model.Buku
 import com.project.projectuts.viewModel.BukuViewModel
 import com.project.projectuts.databinding.ActivityListBukuBinding
 
-class   ListBuku : AppCompatActivity() {
+class ListBuku : AppCompatActivity() {
 
     private lateinit var binding: ActivityListBukuBinding
     private lateinit var bukuAdapter: BukuAdapter
-
     private lateinit var viewModel: BukuViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,12 +48,11 @@ class   ListBuku : AppCompatActivity() {
 
         viewModel.allBuku.observe(this, Observer { books ->
             books?.let {
-                bukuAdapter.submitList(it)
+                bukuAdapter.submitBooksByGenre(it)  // Mengelompokkan buku berdasarkan genre
                 binding.rvListBuku.adapter = bukuAdapter
             }
         })
     }
-
 
     private fun showEditDialog(buku: Buku) {
         val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_edit, null)
