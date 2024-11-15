@@ -76,7 +76,6 @@ class   ListBuku : AppCompatActivity() {
                     judul = edtJudul.text.toString(),
                     pengarang = edtPengarang.text.toString(),
                     tahunTerbit = edtTahunTerbit.text.toString().toInt(),
-                    tanggalDitambahkan = buku.tanggalDitambahkan
                 )
                 viewModel.updateBuku(updatedBuku)
                 dialog.dismiss()

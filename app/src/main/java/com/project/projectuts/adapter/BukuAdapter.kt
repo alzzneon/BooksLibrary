@@ -25,7 +25,7 @@ class BukuAdapter(
             binding.tvJudulBuku.text = buku.judul
             binding.tvPengarangBuku.text = buku.pengarang
             binding.tvTahunTerbit.text = buku.tahunTerbit.toString()
-            binding.tvTanggalDitambahkan.setDate(buku.tanggalDitambahkan)
+
 
             binding.ibEdit.setOnClickListener { onEditClick(buku) }
             binding.ibDelete.setOnClickListener { onDeleteClick(buku) }

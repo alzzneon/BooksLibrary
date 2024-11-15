@@ -27,7 +27,7 @@ class AddBukuActivity : AppCompatActivity() {
             val tahunTerbit = binding.editTextTahunTerbit.text.toString().toIntOrNull() ?: 0
             val tanggalDitambahkan = System.currentTimeMillis()
 
-            val buku = Buku(judul = judul, pengarang = pengarang, tahunTerbit = tahunTerbit, tanggalDitambahkan = tanggalDitambahkan)
+            val buku = Buku(judul = judul, pengarang = pengarang, tahunTerbit = tahunTerbit)
             viewModel.insertBuku(buku)
             finish()
         }
