@@ -37,15 +37,22 @@ class ListBuku : AppCompatActivity() {
         val bookRepository = BookRepository(RetrofitInstance.apiService, this, bookDao)
         booksViewModel = BukuViewModel(bookRepository)
 
+        booksViewModel.syncStatusLiveData.observe(this) { status ->
+            Toast.makeText(this, status, Toast.LENGTH_SHORT).show()
+        }
+        booksViewModel.syncData()
+
         errorMessage()
         observeViewModel()
         booksViewModel.fetchBooks()
+
         binding.tambahBuku.setOnClickListener {
             val intent = Intent(this, AddBukuActivity::class.java)
             startActivity(intent)
         }
     }
 
+    // belum di fix
     private fun showEditDialog(book: Book) {
         val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_edit, null)
 
@@ -72,7 +79,7 @@ class ListBuku : AppCompatActivity() {
                     description = book.description,
                     image_url = book.image_url
                 )
-                booksViewModel.updateBuku(updatedBook)
+                booksViewModel.updateBook(updatedBook)
                 dialog.dismiss()
             }
             .setNegativeButton("Batal") { dialog, _ -> dialog.dismiss() }
@@ -80,12 +87,13 @@ class ListBuku : AppCompatActivity() {
             .show()
     }
 
+    // belum di fix
     private fun showDeleteConfirmationDialog(book: Book) {
         AlertDialog.Builder(this)
             .setTitle("Hapus Book")
             .setMessage("Apakah Anda yakin ingin menghapus book '${book.title}'?")
             .setPositiveButton("Ya") { dialog, _ ->
-                booksViewModel.deleteBuku(book)
+                booksViewModel.deleteBook(book)
                 dialog.dismiss()
             }
             .setNegativeButton("Tidak") { dialog, _ -> dialog.dismiss() }

@@ -23,6 +23,7 @@
 
         <activity
             android:name=".addActivity.AddBukuActivity"
+            android:windowSoftInputMode="adjustPan"
             android:exported="true" />
         <activity
             android:name=".addActivity.AddPengunjungActivity"
