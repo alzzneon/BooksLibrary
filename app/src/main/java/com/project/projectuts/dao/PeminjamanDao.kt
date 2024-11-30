@@ -7,7 +7,6 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import androidx.room.Delete
-import com.project.projectuts.model.Buku
 import com.project.projectuts.model.Peminjaman
 
 @Dao

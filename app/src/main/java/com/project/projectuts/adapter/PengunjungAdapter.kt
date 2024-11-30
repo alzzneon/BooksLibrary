@@ -9,10 +9,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.project.projectuts.R
-import com.project.projectuts.adapter.BukuAdapter.BukuViewHolder
-import com.project.projectuts.databinding.ListBukuBinding
-import com.project.projectuts.list.ListPengunjungActivity
-import com.project.projectuts.model.Buku
 import com.project.projectuts.model.Pengunjung
 
 class PengunjungAdapter(
@@ -41,7 +37,6 @@ class PengunjungAdapter(
     }
     class PengunjungDiffCallback : DiffUtil.ItemCallback<Pengunjung>() {
         override fun areItemsTheSame(oldItem: Pengunjung, newItem: Pengunjung): Boolean {
-            // Assuming Pengunjung has a unique id field. Adjust according to your model
             return oldItem.id == newItem.id
         }
 

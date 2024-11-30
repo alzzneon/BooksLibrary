@@ -5,7 +5,6 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.project.projectuts.dao.PeminjamanDao
 import com.project.projectuts.database.AplikasiDatabase
-import com.project.projectuts.model.Buku
 import com.project.projectuts.model.Peminjaman
 import kotlinx.coroutines.runBlocking
 import org.junit.After

@@ -6,12 +6,12 @@ plugins {
 
 android {
     namespace = "com.project.projectuts"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.project.projectuts"
         minSdk = 28
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -37,7 +37,6 @@ android {
         jvmTarget = "11"
     }
 
-    // Enable View Binding and Data Binding
     buildFeatures {
         viewBinding = true
         dataBinding = true
@@ -59,8 +58,10 @@ dependencies {
     ksp(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx)
     testImplementation(libs.androidx.room.testing)
-    implementation(libs.androidx.lifecycle.viewmodel.ktx.v261)
     implementation(libs.androidx.recyclerview)
     implementation(libs.androidx.cardview)
     testImplementation(libs.androidx.core.testing)
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    implementation(libs.glide)
 }

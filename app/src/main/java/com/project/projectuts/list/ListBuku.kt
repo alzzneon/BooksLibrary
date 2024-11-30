@@ -1,60 +1,52 @@
 package com.project.projectuts.list
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.EditText
-import androidx.appcompat.app.AlertDialog
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.project.projectuts.API.BookRepository
+import com.project.projectuts.API.RetrofitInstance
+import com.project.projectuts.R
 import com.project.projectuts.addActivity.AddBukuActivity
 import com.project.projectuts.database.AplikasiDatabase
-import com.project.projectuts.R
 import com.project.projectuts.adapter.BukuAdapter
-import com.project.projectuts.model.Buku
 import com.project.projectuts.viewModel.BukuViewModel
 import com.project.projectuts.databinding.ActivityListBukuBinding
+import com.project.projectuts.model.Book
 
 class ListBuku : AppCompatActivity() {
 
     private lateinit var binding: ActivityListBukuBinding
     private lateinit var bukuAdapter: BukuAdapter
-    private lateinit var viewModel: BukuViewModel
+    private lateinit var booksViewModel: BukuViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityListBukuBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         binding.rvListBuku.layoutManager = LinearLayoutManager(this)
+        bukuAdapter = BukuAdapter()
+        binding.rvListBuku.adapter = bukuAdapter
 
-        // Inisialisasi bukuAdapter dengan onDeleteClick
-        bukuAdapter = BukuAdapter(
-            onEditClick = { buku ->
-                showEditDialog(buku)
-            },
-            onDeleteClick = { buku ->
-                showDeleteConfirmationDialog(buku)
-            }
-        )
+        val bookDao = AplikasiDatabase.getDatabase(this).bookDao()
+        val bookRepository = BookRepository(RetrofitInstance.apiService, this, bookDao)
+        booksViewModel = BukuViewModel(bookRepository)
 
-        val bukuDao = AplikasiDatabase.getDatabase(this).bukuDao()
-        viewModel = BukuViewModel(bukuDao)
-
+        errorMessage()
+        observeViewModel()
+        booksViewModel.fetchBooks()
         binding.tambahBuku.setOnClickListener {
             val intent = Intent(this, AddBukuActivity::class.java)
             startActivity(intent)
         }
-
-        viewModel.allBuku.observe(this, Observer { books ->
-            books?.let {
-                bukuAdapter.submitBooksByGenre(it)  // Mengelompokkan buku berdasarkan genre
-                binding.rvListBuku.adapter = bukuAdapter
-            }
-        })
     }
 
-    private fun showEditDialog(buku: Buku) {
+    private fun showEditDialog(book: Book) {
         val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_edit, null)
 
         val edtJudul = dialogView.findViewById<EditText>(R.id.edt_judul)
@@ -62,23 +54,25 @@ class ListBuku : AppCompatActivity() {
         val edtPengarang = dialogView.findViewById<EditText>(R.id.edt_pengarang)
         val edtTahunTerbit = dialogView.findViewById<EditText>(R.id.edt_tahunTerbit)
 
-        edtJudul.setText(buku.judul)
-        edtGenre.setText(buku.genre)
-        edtPengarang.setText(buku.pengarang)
-        edtTahunTerbit.setText(buku.tahunTerbit.toString())
+        edtJudul.setText(book.title)
+        edtGenre.setText(book.genre)
+        edtPengarang.setText(book.author)
+        edtTahunTerbit.setText(book.year_publish.toString())
 
         AlertDialog.Builder(this)
-            .setTitle("Edit Buku")
+            .setTitle("Edit Book")
             .setView(dialogView)
             .setPositiveButton("Simpan") { dialog, _ ->
-                val updatedBuku = Buku(
-                    id = buku.id,
+                val updatedBook = Book(
+                    id = book.id,
+                    title = edtJudul.text.toString(),
                     genre = edtGenre.text.toString(),
-                    judul = edtJudul.text.toString(),
-                    pengarang = edtPengarang.text.toString(),
-                    tahunTerbit = edtTahunTerbit.text.toString().toInt(),
+                    author = edtPengarang.text.toString(),
+                    year_publish = edtTahunTerbit.text.toString().toInt(),
+                    description = book.description,
+                    image_url = book.image_url
                 )
-                viewModel.updateBuku(updatedBuku)
+                booksViewModel.updateBuku(updatedBook)
                 dialog.dismiss()
             }
             .setNegativeButton("Batal") { dialog, _ -> dialog.dismiss() }
@@ -86,16 +80,30 @@ class ListBuku : AppCompatActivity() {
             .show()
     }
 
-    private fun showDeleteConfirmationDialog(buku: Buku) {
+    private fun showDeleteConfirmationDialog(book: Book) {
         AlertDialog.Builder(this)
-            .setTitle("Hapus Buku")
-            .setMessage("Apakah Anda yakin ingin menghapus buku '${buku.judul}'?")
+            .setTitle("Hapus Book")
+            .setMessage("Apakah Anda yakin ingin menghapus book '${book.title}'?")
             .setPositiveButton("Ya") { dialog, _ ->
-                viewModel.deleteBuku(buku)
+                booksViewModel.deleteBuku(book)
                 dialog.dismiss()
             }
             .setNegativeButton("Tidak") { dialog, _ -> dialog.dismiss() }
             .create()
             .show()
+    }
+
+    private fun errorMessage() {
+        booksViewModel.errorLiveData.observe(this) { errorMessage ->
+            Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show()
+        }
+    }
+
+    private fun observeViewModel() {
+        booksViewModel.booksLiveData.observe(this) { books ->
+            if (books != null) {
+                bukuAdapter.submitList(books)
+            }
+        }
     }
 }

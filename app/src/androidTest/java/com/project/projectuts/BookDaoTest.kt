@@ -9,17 +9,17 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.Assert.assertEquals
-import com.project.projectuts.dao.BukuDao
+import com.project.projectuts.dao.BookDao
 import com.project.projectuts.database.AplikasiDatabase
-import com.project.projectuts.model.Buku
+import com.project.projectuts.model.Book
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
 
 @RunWith(AndroidJUnit4::class)
-class BukuDaoTest {
+class BookDaoTest {
 
     private lateinit var database: AplikasiDatabase
-    private lateinit var bukuDao: BukuDao
+    private lateinit var bookDao: BookDao
 
     @Before
     fun setUp() {
@@ -27,7 +27,7 @@ class BukuDaoTest {
             InstrumentationRegistry.getInstrumentation().context,
             AplikasiDatabase::class.java
         ).build()
-        bukuDao = database.bukuDao()
+        bookDao = database.bukuDao()
     }
 
     @After
@@ -37,25 +37,25 @@ class BukuDaoTest {
 
     @Test
     fun testInsertBuku() = runBlocking {
-        val buku = Buku(judul = "Kotlin Programming", pengarang = "Bima Cakra", tahunTerbit = 2024)
+        val book = Book(judul = "Kotlin Programming", pengarang = "Bima Cakra", tahunTerbit = 2024)
 
-        bukuDao.insertBuku(buku)
+        bookDao.insertBuku(book)
 
-        assertEquals(buku.judul, "Kotlin Programming")
-        assertEquals(buku.pengarang, "Bima Cakra")
-        assertEquals(buku.tahunTerbit, 2024)
+        assertEquals(book.judul, "Kotlin Programming")
+        assertEquals(book.pengarang, "Bima Cakra")
+        assertEquals(book.tahunTerbit, 2024)
     }
 
     @Test
     fun testUpdateBuku() = runBlocking {
-        val buku = Buku(id = 1, judul = "Kotlin Programming", pengarang = "Bima Cakra", tahunTerbit = 2024)
-        bukuDao.insertBuku(buku)
-        val insertedBukuId = buku.id
+        val book = Book(id = 1, judul = "Kotlin Programming", pengarang = "Bima Cakra", tahunTerbit = 2024)
+        bookDao.insertBuku(book)
+        val insertedBukuId = book.id
 
-        val updatedBuku = buku.copy(judul = "Kitab Jarkom")
-        bukuDao.updateBuku(updatedBuku)
+        val updatedBuku = book.copy(judul = "Kitab Jarkom")
+        bookDao.updateBuku(updatedBuku)
 
-        val retrievedBuku = bukuDao.getBukuById(insertedBukuId)
+        val retrievedBuku = bookDao.getBukuById(insertedBukuId)
         assertEquals("Kitab Jarkom", retrievedBuku?.judul)
         assertEquals("Bima Cakra", retrievedBuku?.pengarang)
         assertEquals(2024, retrievedBuku?.tahunTerbit)
@@ -63,16 +63,16 @@ class BukuDaoTest {
 
     @Test
     fun testDeleteBuku() = runBlocking {
-        val buku = Buku(id = 1, judul = "Kotlin Programming", pengarang = "Bima Cakra", tahunTerbit = 2024)
-        bukuDao.insertBuku(buku)
+        val book = Book(id = 1, judul = "Kotlin Programming", pengarang = "Bima Cakra", tahunTerbit = 2024)
+        bookDao.insertBuku(book)
 
-        val retrieveBuku = bukuDao.getBukuById(buku.id)
+        val retrieveBuku = bookDao.getBukuById(book.id)
         assertNotNull(retrieveBuku)
         assertEquals("Kotlin Programming", retrieveBuku?.judul)
 
-        bukuDao.deleteBuku(buku)
+        bookDao.deleteBuku(book)
 
-        val deleteBuku = bukuDao.getBukuById(buku.id)
+        val deleteBuku = bookDao.getBukuById(book.id)
         assertNull(deleteBuku)
     }
 }
