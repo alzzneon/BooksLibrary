@@ -56,12 +56,9 @@ class AddBukuActivity : AppCompatActivity() {
                     Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
                 }
             }
-            bookViewModel.booksLiveData.observe(this) { books ->
-                if (books.isNotEmpty()) {
-                    Toast.makeText(this, "Buku berhasil ditambahkan!", Toast.LENGTH_SHORT).show()
-                    finish()
-                }
-            }
+            bookViewModel.fetchBooks()
+            Toast.makeText(this, "Buku berhasil ditambahkan!", Toast.LENGTH_SHORT).show()
+            finish()
         }
     }
 

@@ -26,7 +26,7 @@ abstract class AplikasiDatabase : RoomDatabase() {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     AplikasiDatabase::class.java,
-                    "perpustakaan_db"
+                    "db_library"
                 ).build()
                 INSTANCE = instance
                 instance

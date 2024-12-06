@@ -50,6 +50,9 @@ class ListBuku : AppCompatActivity() {
             val intent = Intent(this, AddBukuActivity::class.java)
             startActivity(intent)
         }
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            booksViewModel.refreshBooks()
+        }
     }
 
     // belum di fix
@@ -112,6 +115,7 @@ class ListBuku : AppCompatActivity() {
             if (books != null) {
                 bukuAdapter.submitList(books)
             }
+            binding.swipeRefreshLayout.isRefreshing = false
         }
     }
 }

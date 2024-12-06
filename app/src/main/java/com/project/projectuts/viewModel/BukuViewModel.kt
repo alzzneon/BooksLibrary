@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.project.projectuts.API.BookRepository
 import com.project.projectuts.model.Book
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class BukuViewModel(private val repository: BookRepository) : ViewModel() {
@@ -47,11 +48,18 @@ class BukuViewModel(private val repository: BookRepository) : ViewModel() {
         viewModelScope.launch {
             _syncStatusLiveData.postValue("Proses sinkronisasi dimulai...")
             try {
-                repository.syncUnsentBooks() // Sinkronkan buku yang belum terkirim
+                repository.syncUnsentBooks()
                 _syncStatusLiveData.postValue("Semua buku berhasil disinkronkan!")
             } catch (e: Exception) {
                 _syncStatusLiveData.postValue("Sinkronisasi gagal: ${e.message}")
             }
+        }
+    }
+
+    fun refreshBooks() {
+        viewModelScope.launch {
+            syncData()
+            fetchBooks()
         }
     }
 
