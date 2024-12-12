@@ -13,6 +13,9 @@ class BukuViewModel(private val repository: BookRepository) : ViewModel() {
     private val _booksLiveData = MutableLiveData<List<Book>>()
     val booksLiveData: LiveData<List<Book>> get() = _booksLiveData
 
+    private val _bookLiveData = MutableLiveData<Book>()
+    val bookLiveData: LiveData<Book> get() = _bookLiveData
+
     private val _errorliveData = MutableLiveData<String>()
     val errorLiveData: LiveData<String> get() = _errorliveData
 
@@ -31,60 +34,72 @@ class BukuViewModel(private val repository: BookRepository) : ViewModel() {
         }
     }
 
-    fun insertBuku(book: Book) {
+    fun fetchBookById(id: Int) {
         viewModelScope.launch {
             try {
-                repository.insertBook(book)
-                fetchBooks()
+                val book = repository.getBookById(id)
+                _bookLiveData.postValue(book)
             } catch (e: Exception) {
-                val errorMessage = e.message ?: "Terjadi kesalahan dalam menyimpan data buku"
+                val errorMessage = e.message ?: "Terjadi kesalahan dalam mengambil detail buku"
                 _errorliveData.postValue(errorMessage)
             }
         }
     }
 
-    fun syncData() {
-        viewModelScope.launch {
-            _syncStatusLiveData.postValue("Proses sinkronisasi dimulai...")
-            try {
-                repository.syncUnsentBooks()
-                _syncStatusLiveData.postValue("Semua buku berhasil disinkronkan!")
-            } catch (e: Exception) {
-                _syncStatusLiveData.postValue("Sinkronisasi gagal: ${e.message}")
+        fun insertBuku(book: Book) {
+            viewModelScope.launch {
+                try {
+                    repository.insertBook(book)
+                    fetchBooks()
+                } catch (e: Exception) {
+                    val errorMessage = e.message ?: "Terjadi kesalahan dalam menyimpan data buku"
+                    _errorliveData.postValue(errorMessage)
+                }
             }
         }
-    }
 
-    fun refreshBooks() {
-        viewModelScope.launch {
-            syncData()
-            fetchBooks()
+        fun syncData() {
+            viewModelScope.launch {
+                _syncStatusLiveData.postValue("Proses sinkronisasi dimulai...")
+                try {
+                    repository.syncUnsentBooks()
+                    _syncStatusLiveData.postValue("Semua buku berhasil disinkronkan!")
+                } catch (e: Exception) {
+                    _syncStatusLiveData.postValue("Sinkronisasi gagal: ${e.message}")
+                }
+            }
         }
-    }
 
-    // belum di fix
-    fun updateBook(updatedBook: Book) {
-        viewModelScope.launch {
-            try {
-                repository.updateBook(updatedBook) //
+        fun refreshBooks() {
+            viewModelScope.launch {
+                syncData()
                 fetchBooks()
-            } catch (e: Exception) {
-                val errorMessage = e.message ?: "Terjadi kesalahan dalam memperbarui data buku"
-                _errorliveData.postValue(errorMessage)
             }
         }
-    }
 
-    // belum di fix
-    fun deleteBook(book: Book) {
-        viewModelScope.launch {
-            try {
-                repository.deleteBook(book)
-                fetchBooks()
-            } catch (e: Exception) {
-                val errorMessage = e.message ?: "Terjadi kesalahan dalam menghapus data buku"
-                _errorliveData.postValue(errorMessage)
+        // belum di fix
+        fun updateBook(updatedBook: Book) {
+            viewModelScope.launch {
+                try {
+                    repository.updateBook(updatedBook) //
+                    fetchBooks()
+                } catch (e: Exception) {
+                    val errorMessage = e.message ?: "Terjadi kesalahan dalam memperbarui data buku"
+                    _errorliveData.postValue(errorMessage)
+                }
+            }
+        }
+
+        // belum di fix
+        fun deleteBook(book: Book) {
+            viewModelScope.launch {
+                try {
+                    repository.deleteBook(book)
+                    fetchBooks()
+                } catch (e: Exception) {
+                    val errorMessage = e.message ?: "Terjadi kesalahan dalam menghapus data buku"
+                    _errorliveData.postValue(errorMessage)
+                }
             }
         }
     }
-}

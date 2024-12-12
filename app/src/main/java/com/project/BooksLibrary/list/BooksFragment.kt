@@ -35,7 +35,7 @@ class BooksFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.rvListBuku.layoutManager = LinearLayoutManager(requireContext())
-        bukuAdapter = BukuAdapter()
+        bukuAdapter = BukuAdapter {bookId -> onBookClick(bookId)}
         binding.rvListBuku.adapter = bukuAdapter
 
         val bookDao = AplikasiDatabase.getDatabase(requireContext()).bookDao()
@@ -62,11 +62,18 @@ class BooksFragment : Fragment() {
 
     private fun observeViewModel() {
         booksViewModel.booksLiveData.observe(viewLifecycleOwner) { books ->
-            if (books != null) {
-                bukuAdapter.submitList(books)
+            if (books != null) {                bukuAdapter.submitBooksByGenre(books)
             }
             binding.swipeRefreshLayout.isRefreshing = false
         }
+    }
+    private fun onBookClick(bookId: Int) {
+        val detailFragment = DetailBookFragment()
+        val bundle = Bundle()
+        bundle.putInt("BOOK_ID",bookId)
+        detailFragment.arguments = bundle
+
+        findNavController().navigate(R.id.action_booksFragment_to_detailBookFragment,bundle)
     }
 
     override fun onDestroyView() {

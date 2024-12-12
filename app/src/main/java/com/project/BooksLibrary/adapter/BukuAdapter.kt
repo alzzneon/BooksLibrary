@@ -10,11 +10,11 @@ import com.project.BooksLibrary.databinding.HeaderItemBinding
 import com.project.BooksLibrary.databinding.ItemBookBinding
 import com.project.BooksLibrary.model.Book
 
-class BukuAdapter : ListAdapter<Book, RecyclerView.ViewHolder>(RowCallback()) {
+class BukuAdapter(private val onItemCLick: (Int) -> Unit): ListAdapter<Book, RecyclerView.ViewHolder>(RowCallback()) {
 
     enum class ITEM_VIEW_TYPE { HEADER, BUKU }
 
-    class BukuViewHolder(private val binding: ItemBookBinding) : RecyclerView.ViewHolder(binding.root) {
+    class BukuViewHolder(private val binding: ItemBookBinding,private val onItemCLick: (Int) -> Unit) : RecyclerView.ViewHolder(binding.root) {
         fun bind(book: Book) {
             binding.tvJudul.text = book.title
             binding.tvGenre.text = book.genre
@@ -25,13 +25,19 @@ class BukuAdapter : ListAdapter<Book, RecyclerView.ViewHolder>(RowCallback()) {
             Glide.with(binding.ivCover.context)
                 .load(book.image_url)
                 .into(binding.ivCover)
+            binding.root.setOnClickListener {
+                val bookId = book.id
+                if (bookId != null && bookId != -1) (
+                    onItemCLick(bookId)
+                )
+            }
         }
 
         companion object {
-            fun from(parent: ViewGroup): BukuViewHolder {
+            fun from(parent: ViewGroup, onItemCLick: (Int) -> Unit): BukuViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding = ItemBookBinding.inflate(layoutInflater, parent, false)
-                return BukuViewHolder(binding)
+                return BukuViewHolder(binding, onItemCLick)
             }
         }
     }
@@ -67,14 +73,13 @@ class BukuAdapter : ListAdapter<Book, RecyclerView.ViewHolder>(RowCallback()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
             ITEM_VIEW_TYPE.HEADER.ordinal -> HeaderViewHolder.from(parent)
-            ITEM_VIEW_TYPE.BUKU.ordinal -> BukuViewHolder.from(parent)
+            ITEM_VIEW_TYPE.BUKU.ordinal -> BukuViewHolder.from(parent,onItemCLick)
             else -> throw IllegalArgumentException("Invalid view type")
         }
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val buku = getItem(position)
-
         if (buku.title.isEmpty()) {
             (holder as HeaderViewHolder).bind(buku.genre)
         } else {

@@ -17,6 +17,9 @@
         <action
             android:id="@+id/action_booksFragment_to_addBookFragment3"
             app:destination="@id/addBookFragment" />
+        <action
+            android:id="@+id/action_booksFragment_to_detailBookFragment"
+            app:destination="@id/detailBookFragment" />
     </fragment>
     <fragment
         android:id="@+id/lendingFragment"
@@ -28,4 +31,9 @@
         android:name="com.project.BooksLibrary.addActivity.AddBookFragment"
         android:label="fragment_add_book"
         tools:layout="@layout/fragment_add_book" />
+    <fragment
+        android:id="@+id/detailBookFragment"
+        android:name="com.project.BooksLibrary.list.DetailBookFragment"
+        android:label="fragment_detail_book"
+        tools:layout="@layout/fragment_detail_book" />
 </navigation>

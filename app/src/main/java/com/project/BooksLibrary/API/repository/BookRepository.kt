@@ -26,6 +26,15 @@ class BookRepository(private val apiService: ApiService, private val context: Co
             bookDao.getAllBooks()
         }
     }
+    suspend fun getBookById(id: Int): Book {
+        return if (isNetworkAvailable()) {
+            val book = apiService.getBookById(id)
+            bookDao.insertBooks(listOf(book))
+            book
+        } else {
+            bookDao.getBookById(id)
+        }
+    }
 
     suspend fun insertBook(book: Book) {
         if (isNetworkAvailable()) {
