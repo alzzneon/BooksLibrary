@@ -1,173 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/verticalGuideline"
-        android:layout_width="wrap_content"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.5" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/horizontalGuideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.1" />
-
-    <!-- Title -->
-    <TextView
-        android:id="@+id/titleText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Perpustakaan Digital"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/horizontalGuideline"
-        app:layout_constraintEnd_toStartOf="@+id/profileIcon"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent">
 
-    <ImageView
-        android:id="@+id/profileIcon"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:src="@drawable/ic_avatar"
-        app:layout_constraintBottom_toBottomOf="@+id/titleText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/titleText" />
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cardBuku"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="8dp"
-        app:cardCornerRadius="8dp"
-        app:cardElevation="4dp"
-        android:clickable="true"
-        android:focusable="true"
-        app:layout_constraintEnd_toStartOf="@+id/cardPengunjung"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/horizontalGuideline">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="15dp">
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:title="Books Library"
+            app:titleTextColor="@android:color/white" />
 
-            <ImageView
-                android:id="@+id/imageViewBooks"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/books" />
+    </com.google.android.material.appbar.AppBarLayout>
 
-            <TextView
-                android:id="@+id/textBuku"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="List Buku"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/imageViewBooks" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </com.google.android.material.card.MaterialCardView>
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cardPengunjung"
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainerView"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
-        app:cardCornerRadius="8dp"
-        app:cardElevation="4dp"
-        android:clickable="true"
-        android:focusable="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/cardBuku"
-        app:layout_constraintTop_toBottomOf="@id/horizontalGuideline">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="16dp">
-
-            <ImageView
-                android:id="@+id/imageViewVisitors"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/visitors" />
-
-            <TextView
-                android:id="@+id/textPengunjung"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="List Pengunjung"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/imageViewVisitors" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </com.google.android.material.card.MaterialCardView>
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cardPeminjaman"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        app:cardCornerRadius="8dp"
-        app:cardElevation="4dp"
-        android:clickable="true"
-        android:focusable="true"
+        android:layout_height="0dp"
+        app:defaultNavHost="true"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cardBuku">
+        app:navGraph="@navigation/my_nav" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="16dp">
-
-            <ImageView
-                android:id="@+id/imageViewBorrow"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/borrow" />
-
-            <TextView
-                android:id="@+id/textPeminjaman"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="Add Peminjaman"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/imageViewBorrow" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </com.google.android.material.card.MaterialCardView>
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_nav_menu"
+        app:itemIconTint="@color/color_selector"
+        app:itemTextColor="@color/color_selector"
+        app:labelVisibilityMode="labeled"
+        app:animationMode="slide"
+        app:itemHorizontalTranslationEnabled="true"
+        app:itemIconSize="24dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

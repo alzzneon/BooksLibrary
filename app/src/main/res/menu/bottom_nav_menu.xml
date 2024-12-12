@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="Visitors"
+        android:id="@+id/visitorsFragment"
+        android:icon="@drawable/ic_visitors"/>
+    <item android:title="Books"
+        android:id="@+id/booksFragment"
+        android:icon="@drawable/ic_book"/>
+    <item android:title="Lending"
+        android:id="@+id/lendingFragment"
+        android:icon="@drawable/ic_lending"/>
+</menu>

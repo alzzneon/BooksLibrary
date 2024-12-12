@@ -14,30 +14,12 @@
 
         <activity
             android:name=".MainActivity"
+            android:windowSoftInputMode="adjustPan"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity
-            android:name=".addActivity.AddBukuActivity"
-            android:windowSoftInputMode="adjustPan"
-            android:exported="true" />
-        <activity
-            android:name=".addActivity.AddPengunjungActivity"
-            android:exported="true" />
-        <activity android:name=".addActivity.AddPeminjamanActivity"
-            android:exported="true"/>
-        <activity
-            android:name=".list.ListBuku"
-            android:exported="true" />
-        <activity
-            android:name=".list.ListPengunjungActivity"
-            android:exported="true" />
-        <activity android:name=".list.ListPeminjamanActivity"
-            android:exported="true"/>
-
     </application>
 </manifest>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/tv_nameVisitor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="John Doe"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/black" />
+
+        <TextView
+            android:id="@+id/tv_visitDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Visit Date: 2024-12-06"
+            android:textSize="14sp"
+            android:textColor="@android:color/darker_gray" />
+
+        <TextView
+            android:id="@+id/tvGender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Gender: Male"
+            android:textSize="14sp"
+            android:textColor="@android:color/darker_gray" />
+
+        <TextView
+            android:id="@+id/tv_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Address: 123 Main St, Cityville"
+            android:textSize="14sp"
+            android:textColor="@android:color/darker_gray" />
+
+        <TextView
+            android:id="@+id/tv_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Phone: 123-456-7890"
+            android:textSize="14sp"
+            android:textColor="@android:color/darker_gray" />
+
+        <TextView
+            android:id="@+id/tv_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email: johndoe@example.com"
+            android:textSize="14sp"
+            android:textColor="@android:color/darker_gray" />
+
+        <TextView
+            android:id="@+id/tv_visitPurpose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Purpose: Study"
+            android:textSize="14sp"
+            android:textColor="@android:color/darker_gray" />
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.project.projectuts"
+    namespace = "com.project.BooksLibrary"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.project.projectuts"
+        applicationId = "com.project.BooksLibrary"
         minSdk = 28
         targetSdk = 35
         versionCode = 1
@@ -65,4 +65,6 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
     implementation(libs.glide)
+    implementation("androidx.navigation:navigation-fragment:2.8.4")
+    implementation("androidx.navigation:navigation-ui:2.8.4")
 }
