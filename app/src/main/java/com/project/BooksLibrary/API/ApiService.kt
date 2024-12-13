@@ -1,7 +1,7 @@
 package com.project.BooksLibrary.API
 
-import com.project.BooksLibrary.model.Book
-import com.project.BooksLibrary.model.Visitors
+import com.project.BooksLibrary.Model.Book
+import com.project.BooksLibrary.Model.Visitors
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -19,4 +19,7 @@ interface ApiService {
 
     @GET("/visitors")
     suspend fun getVisitors(): List<Visitors>
+
+    @POST("/visitors")
+    suspend fun insertVisitors(@Body visitors: Visitors)
 }

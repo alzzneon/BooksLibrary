@@ -34,6 +34,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.lendingFragment -> "Lending"
                 R.id.addBookFragment -> "Add Book"
                 R.id.detailBookFragment -> "Detail of Book"
+                R.id.addVisitorFragment2 -> "Add Visitor"
                 else -> "Default Title"
             }
         }

@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Books Library</string>
+    <string-array name="gender_array">
+        <item>Laki-laki</item>
+        <item>Perempuan</item>
+    </string-array>
+    <string-array name="visit_purpose_array">
+        <item>Membaca</item>
+        <item>Meminjam</item>
+        <item>Memakai Komputer</item>
+        <item>Lainnya</item>
+    </string-array>
 </resources>
