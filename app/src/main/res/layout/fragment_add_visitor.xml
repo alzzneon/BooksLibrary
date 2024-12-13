@@ -76,10 +76,10 @@
         <Spinner
             android:id="@+id/spinnerGender"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:padding="12dp"
             android:background="@drawable/spinner"
-        android:spinnerMode="dropdown" />
+            android:spinnerMode="dropdown" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -162,10 +162,10 @@
         <Spinner
             android:id="@+id/spinnerVisitPurpose"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:padding="12dp"
             android:background="@drawable/spinner"
-        android:spinnerMode="dropdown" />
+            android:spinnerMode="dropdown" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton

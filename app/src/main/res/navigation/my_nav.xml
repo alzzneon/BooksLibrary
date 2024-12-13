@@ -6,7 +6,7 @@
     app:startDestination="@id/booksFragment">
     <fragment
         android:id="@+id/visitorsFragment"
-        android:name="com.project.BooksLibrary.ListFragment.VisitorsFragment"
+        android:name="com.project.books_library.list_fragment.VisitorsFragment"
         android:label="fragment_visitors"
         tools:layout="@layout/fragment_visitors" >
         <action
@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/booksFragment"
-        android:name="com.project.BooksLibrary.ListFragment.BooksFragment"
+        android:name="com.project.books_library.list_fragment.BooksFragment"
         android:label="fragment_books"
         tools:layout="@layout/fragment_books" >
         <action
@@ -27,22 +27,22 @@
     </fragment>
     <fragment
         android:id="@+id/lendingFragment"
-        android:name="com.project.BooksLibrary.LendingFragment"
+        android:name="com.project.books_library.LendingFragment"
         android:label="fragment_lending"
         tools:layout="@layout/fragment_lending" />
     <fragment
         android:id="@+id/addBookFragment"
-        android:name="com.project.BooksLibrary.AddFragment.AddBookFragment"
+        android:name="com.project.books_library.add_fragment.AddBookFragment"
         android:label="fragment_add_book"
         tools:layout="@layout/fragment_add_book" />
     <fragment
         android:id="@+id/detailBookFragment"
-        android:name="com.project.BooksLibrary.ListFragment.DetailBookFragment"
+        android:name="com.project.books_library.list_fragment.DetailBookFragment"
         android:label="fragment_detail_book"
         tools:layout="@layout/fragment_detail_book" />
     <fragment
         android:id="@+id/addVisitorFragment2"
-        android:name="com.project.BooksLibrary.AddFragment.AddVisitorFragment"
+        android:name="com.project.books_library.add_fragment.AddVisitorFragment"
         android:label="fragment_add_visitor"
         tools:layout="@layout/fragment_add_visitor" />
 </navigation>
