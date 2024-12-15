@@ -9,7 +9,7 @@ import com.project.books_library.model.Visitors
 import kotlinx.coroutines.launch
 
 class VisitorViewModel(private val visitorRepository: VisitorRepository) : ViewModel() {
-    val visitorsLiveData: LiveData<List<Visitors>> = visitorRepository.getVisitors()
+    var visitorsLiveData: LiveData<List<Visitors>> = visitorRepository.getVisitors()
 
     private val _errorLiveData = MutableLiveData<String>()
     val errorLiveData: LiveData<String> get() = _errorLiveData
@@ -31,6 +31,18 @@ class VisitorViewModel(private val visitorRepository: VisitorRepository) : ViewM
                 visitorRepository.deleteVisitors(visitors)
             } catch (e: Exception) {
                 val errorMessage = e.message ?: "Terjadi kesalahan dalam menghapus pengunjung"
+                _errorLiveData.postValue(errorMessage)
+            }
+        }
+    }
+
+    fun editVisitor(visitors: Visitors) {
+        viewModelScope.launch {
+            try {
+                visitorRepository.editVisitor(visitors)
+                visitorsLiveData = visitorRepository.getVisitors()
+            } catch (e: Exception) {
+                val errorMessage = e.message ?: "Terjadi kesalahan dalam mengedit pengunjung"
                 _errorLiveData.postValue(errorMessage)
             }
         }

@@ -19,4 +19,7 @@ interface VisitorDao {
     @Query("DELETE FROM visitors WHERE id_visitor = :id")
     suspend fun deleteById(id: Int?)
 
+    @Update
+    suspend fun updateVisitor(visitor: Visitors)
+
 }

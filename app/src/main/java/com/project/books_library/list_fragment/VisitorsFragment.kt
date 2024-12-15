@@ -36,9 +36,12 @@ class VisitorsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.rvVisitors.layoutManager = LinearLayoutManager(requireContext())
-        visitorAdapter = VisitorAdapter(requireContext()) { visitor ->
+
+        visitorAdapter = VisitorAdapter(requireContext(), { visitor ->
             deleteVisitor(visitor)
-        }
+        }, { visitor ->
+            editVisitor(visitor)
+        })
         binding.rvVisitors.adapter = visitorAdapter
 
         val visitorDao = AplikasiDatabase.getDatabase(requireContext()).visitorDao()
@@ -67,6 +70,10 @@ class VisitorsFragment : Fragment() {
 
     private fun deleteVisitor(visitor: Visitors) {
         visitorViewModel.deleteVisitor(visitor)
+    }
+
+    private fun editVisitor(visitor: Visitors) {
+        visitorViewModel.editVisitor(visitor)
     }
 
     override fun onDestroyView() {

@@ -8,4 +8,5 @@
     <color name="gray">#808080</color>
     <color name="colorPrimary">#007BFF</color>
     <color name="colorGray">#808080</color>
+    <color name="colorAccent">#FF4081</color>
 </resources>
