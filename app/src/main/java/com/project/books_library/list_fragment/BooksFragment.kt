@@ -44,14 +44,9 @@ class BooksFragment : Fragment() {
 
         errorMessage()
         observeViewModel()
-        booksViewModel.fetchBooks()
 
         binding.btnAddBook.setOnClickListener {
             findNavController().navigate(R.id.action_booksFragment_to_addBookFragment3)
-        }
-
-        binding.swipeRefreshLayout.setOnRefreshListener {
-            booksViewModel.fetchBooks()
         }
     }
     private fun errorMessage() {

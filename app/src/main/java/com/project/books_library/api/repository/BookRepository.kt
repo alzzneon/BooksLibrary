@@ -4,43 +4,66 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import com.project.books_library.api.ApiService
 import com.project.books_library.dao.BookDao
 import com.project.books_library.model.Book
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class BookRepository(private val apiService: ApiService, private val context: Context, private val bookDao: BookDao) {
 
     private fun isNetworkAvailable(): Boolean {
-        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val networkCapabilities = connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
-
+        val connectivityManager =
+            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val networkCapabilities =
+            connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
         return networkCapabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) == true
     }
 
-    suspend fun getBooks(): List<Book> {
-        return if (isNetworkAvailable()) {
-            val booksFromApi = apiService.getBooks()
-            val existingBooks = bookDao.getAllBooks().map { it.title }.toSet()
-            val newBooks = booksFromApi.filter { it.title !in existingBooks }
-            if (newBooks.isNotEmpty()) {
-                bookDao.insertListBooks(newBooks)
-            }
-            val localBooks = bookDao.getAllBooks()
-            val apiBookTitles = booksFromApi.map { it.title }.toSet()
-            localBooks.forEach { localBook ->
-                if (localBook.title !in apiBookTitles) {
-                    try {
-                        apiService.insertBook(localBook)
-                        Log.d("BookRepository", "Buku Dikirimkan ke API: ${localBook.title}")
-                    } catch (e: Exception) {
-                        Log.e("BookRepository", "Gagal Mengirimkan Buku ke API: ${e.message}")
+    fun getBooks(): LiveData<List<Book>> {
+        val result = MediatorLiveData<List<Book>>()
+        val localBooks = bookDao.getAllBooks()
+        result.addSource(localBooks) { books ->
+            result.value = books
+        }
+
+        if (isNetworkAvailable()) {
+            CoroutineScope(Dispatchers.IO).launch {
+                try {
+                    val booksFromApi: List<Book> = apiService.getBooks()
+                    val existingBooks = localBooks.value?.map { it.title }?.toSet() ?: emptySet()
+                    val newBooks = booksFromApi.filter { it.title !in existingBooks }
+
+                    if (newBooks.isNotEmpty()) {
+                        bookDao.insertListBooks(newBooks)
                     }
+
+                    localBooks.value?.forEach { localBook ->
+                        if (localBook.title !in booksFromApi.map { it.title }) {
+                            try {
+                                apiService.insertBook(localBook)
+                                Log.d(
+                                    "BookRepository",
+                                    "Buku dikirimkan ke API: ${localBook.title}"
+                                )
+                            } catch (e: Exception) {
+                                Log.e(
+                                    "BookRepository",
+                                    "Gagal Mengirimkan Buku ke API: ${e.message}"
+                                )
+                            }
+                        }
+                    }
+                } catch (e: Exception) {
+                    Log.e("BookRepository", "Gagal mengambil data dari API: ${e.message}")
                 }
             }
-            bookDao.getAllBooks()
-        } else {
-            bookDao.getAllBooks()
         }
+
+        return result
     }
 
     suspend fun getBookById(id: Int): Book {
@@ -66,7 +89,8 @@ class BookRepository(private val apiService: ApiService, private val context: Co
 //            apiService.(updatedBook)
 //        } else {
 //            bookDao.update(updatedBook)
-        }
+//        }
+    }
 
     suspend fun deleteBook(book: Book) {
 //        if (isNetworkAvailable()) {

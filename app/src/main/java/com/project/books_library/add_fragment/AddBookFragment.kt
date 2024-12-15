@@ -61,7 +61,6 @@ class AddBookFragment : Fragment() {
                     Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
                 }
             }
-            bookViewModel.fetchBooks()
             Toast.makeText(requireContext(), "Buku berhasil ditambahkan!", Toast.LENGTH_SHORT).show()
             parentFragmentManager.popBackStack()
         }

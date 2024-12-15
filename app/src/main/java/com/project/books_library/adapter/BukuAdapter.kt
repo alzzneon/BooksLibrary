@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.project.books_library.R
 import com.project.books_library.databinding.HeaderItemBinding
 import com.project.books_library.databinding.ItemBookBinding
 import com.project.books_library.model.Book
@@ -24,12 +25,11 @@ class BukuAdapter(private val onItemCLick: (Int) -> Unit): ListAdapter<Book, Rec
 
             Glide.with(binding.ivCover.context)
                 .load(book.image_url)
+                .placeholder(R.drawable.ic_loading)
+                .error(R.drawable.ic_not_available)
                 .into(binding.ivCover)
             binding.root.setOnClickListener {
-                val bookId = book.id
-                if (bookId != null && bookId != -1) (
-                    onItemCLick(bookId)
-                )
+                book.id?.let { it1 -> onItemCLick(it1) }
             }
         }
 
@@ -62,7 +62,7 @@ class BukuAdapter(private val onItemCLick: (Int) -> Unit): ListAdapter<Book, Rec
         var lastGenre: String? = null
         sortedBooks.forEach { buku ->
             if (buku.genre != lastGenre) {
-                items.add(Book(id = 0, title = "", genre = buku.genre, author = "", year_publish = 0, description = "", image_url = ""))
+                items.add(Book(id = -1, title = "", genre = buku.genre, author = "", year_publish = 0, description = "", image_url = ""))
                 lastGenre = buku.genre
             }
             items.add(buku)

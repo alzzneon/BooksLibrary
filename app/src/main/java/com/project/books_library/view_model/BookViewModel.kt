@@ -8,10 +8,9 @@ import com.project.books_library.api.repository.BookRepository
 import com.project.books_library.model.Book
 import kotlinx.coroutines.launch
 
-class BookViewModel(private val repository: BookRepository) : ViewModel() {
+class BookViewModel(private val BooksRepository: BookRepository) : ViewModel() {
 
-    private val _booksLiveData = MutableLiveData<List<Book>>()
-    val booksLiveData: LiveData<List<Book>> get() = _booksLiveData
+    val booksLiveData: LiveData<List<Book>> get() = BooksRepository.getBooks()
 
     private val _bookLiveData = MutableLiveData<Book>()
     val bookLiveData: LiveData<Book> get() = _bookLiveData
@@ -19,25 +18,10 @@ class BookViewModel(private val repository: BookRepository) : ViewModel() {
     private val _errorliveData = MutableLiveData<String>()
     val errorLiveData: LiveData<String> get() = _errorliveData
 
-//    private val _syncStatusLiveData = MutableLiveData<String>()
-//    val syncStatusLiveData: LiveData<String> get() = _syncStatusLiveData
-
-    fun fetchBooks() {
-        viewModelScope.launch {
-            try {
-                val books = repository.getBooks()
-                _booksLiveData.postValue(books)
-            } catch (e: Exception) {
-                val errorMessage = e.message ?: "Terjadi kesalahan dalam mengambil data buku"
-                _errorliveData.postValue(errorMessage)
-            }
-        }
-    }
-
     fun fetchBookById(id: Int) {
         viewModelScope.launch {
             try {
-                val book = repository.getBookById(id)
+                val book = BooksRepository.getBookById(id)
                 _bookLiveData.postValue(book)
             } catch (e: Exception) {
                 val errorMessage = e.message ?: "Terjadi kesalahan dalam mengambil detail buku"
@@ -49,8 +33,7 @@ class BookViewModel(private val repository: BookRepository) : ViewModel() {
         fun insertBuku(book: Book) {
             viewModelScope.launch {
                 try {
-                    repository.insertBook(book)
-                    fetchBooks()
+                    BooksRepository.insertBook(book)
                 } catch (e: Exception) {
                     val errorMessage = e.message ?: "Terjadi kesalahan dalam menyimpan data buku"
                     _errorliveData.postValue(errorMessage)
@@ -62,8 +45,7 @@ class BookViewModel(private val repository: BookRepository) : ViewModel() {
         fun updateBook(updatedBook: Book) {
             viewModelScope.launch {
                 try {
-                    repository.updateBook(updatedBook) //
-                    fetchBooks()
+                    BooksRepository.updateBook(updatedBook) //
                 } catch (e: Exception) {
                     val errorMessage = e.message ?: "Terjadi kesalahan dalam memperbarui data buku"
                     _errorliveData.postValue(errorMessage)
@@ -75,8 +57,7 @@ class BookViewModel(private val repository: BookRepository) : ViewModel() {
         fun deleteBook(book: Book) {
             viewModelScope.launch {
                 try {
-                    repository.deleteBook(book)
-                    fetchBooks()
+                    BooksRepository.deleteBook(book)
                 } catch (e: Exception) {
                     val errorMessage = e.message ?: "Terjadi kesalahan dalam menghapus data buku"
                     _errorliveData.postValue(errorMessage)
