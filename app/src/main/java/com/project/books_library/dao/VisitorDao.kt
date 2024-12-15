@@ -1,5 +1,6 @@
 package com.project.books_library.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.project.books_library.model.Visitors
 
@@ -13,8 +14,9 @@ interface VisitorDao {
     suspend fun insertVisitor(visitors: Visitors)
 
     @Query("SELECT * FROM Visitors")
-    suspend fun getAllVisitors(): List<Visitors>
+    fun getAllVisitors(): LiveData<List<Visitors>>
 
-    @Query("DELETE FROM visitors WHERE id_visitors = :id")
+    @Query("DELETE FROM visitors WHERE id_visitor = :id")
     suspend fun deleteById(id: Int?)
+
 }

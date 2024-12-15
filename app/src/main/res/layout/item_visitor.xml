@@ -1,74 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="16dp"
-    app:cardCornerRadius="8dp"
-    app:cardElevation="4dp">
+    android:padding="10dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_view"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:layout_margin="5dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="3dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/tv_nameVisitor"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="John Doe"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="@android:color/black" />
+            android:padding="16dp">
 
-        <TextView
-            android:id="@+id/tv_visitDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Visit Date: 2024-12-06"
-            android:textSize="14sp"
-            android:textColor="@android:color/darker_gray" />
+            <TextView
+                android:id="@+id/tv_nameVisitor"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="John Doe"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/tvGender"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Gender: Male"
-            android:textSize="14sp"
-            android:textColor="@android:color/darker_gray" />
+            <TextView
+                android:id="@+id/tv_visitDate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Visit Date: 2024-12-06"
+                android:textSize="14sp"
+                android:textColor="@android:color/darker_gray"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_nameVisitor" />
 
-        <TextView
-            android:id="@+id/tv_address"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Address: 123 Main St, Cityville"
-            android:textSize="14sp"
-            android:textColor="@android:color/darker_gray" />
+            <TextView
+                android:id="@+id/tvGender"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Gender: Male"
+                android:textSize="14sp"
+                android:textColor="@android:color/darker_gray"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_visitDate" />
 
-        <TextView
-            android:id="@+id/tv_phone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Phone: 123-456-7890"
-            android:textSize="14sp"
-            android:textColor="@android:color/darker_gray" />
+            <TextView
+                android:id="@+id/tv_address"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Address: 123 Main St, Cityville"
+                android:textSize="14sp"
+                android:textColor="@android:color/darker_gray"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvGender" />
 
-        <TextView
-            android:id="@+id/tv_email"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Email: johndoe@example.com"
-            android:textSize="14sp"
-            android:textColor="@android:color/darker_gray" />
+            <TextView
+                android:id="@+id/tv_phone"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Phone: 123-456-7890"
+                android:textSize="14sp"
+                android:textColor="@android:color/darker_gray"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_address" />
 
-        <TextView
-            android:id="@+id/tv_visitPurpose"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Purpose: Study"
-            android:textSize="14sp"
-            android:textColor="@android:color/darker_gray" />
+            <TextView
+                android:id="@+id/tv_email"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Email: johndoe@example.com"
+                android:textSize="14sp"
+                android:textColor="@android:color/darker_gray"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_phone" />
 
-    </LinearLayout>
-</androidx.cardview.widget.CardView>
+            <TextView
+                android:id="@+id/tv_visitPurpose"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Purpose: Study"
+                android:textSize="14sp"
+                android:textColor="@android:color/darker_gray"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_email" />
+
+            <ImageButton
+                android:id="@+id/btn_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_edit"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:layout_margin="8dp" />
+
+            <ImageButton
+                android:id="@+id/btn_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_delete"
+                android:contentDescription="delete visitors"
+                app:layout_constraintEnd_toStartOf="@id/btn_edit"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:layout_margin="8dp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

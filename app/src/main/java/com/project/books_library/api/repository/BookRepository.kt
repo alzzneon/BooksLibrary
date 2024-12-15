@@ -23,7 +23,7 @@ class BookRepository(private val apiService: ApiService, private val context: Co
             val existingBooks = bookDao.getAllBooks().map { it.title }.toSet()
             val newBooks = booksFromApi.filter { it.title !in existingBooks }
             if (newBooks.isNotEmpty()) {
-                bookDao.insertBooks(newBooks)
+                bookDao.insertListBooks(newBooks)
             }
             val localBooks = bookDao.getAllBooks()
             val apiBookTitles = booksFromApi.map { it.title }.toSet()
@@ -46,7 +46,7 @@ class BookRepository(private val apiService: ApiService, private val context: Co
     suspend fun getBookById(id: Int): Book {
         return if (isNetworkAvailable()) {
             val book = apiService.getBookById(id)
-            bookDao.insertBooks(listOf(book))
+            bookDao.insertListBooks(listOf(book))
             book
         } else {
             bookDao.getBookById(id)
@@ -70,9 +70,9 @@ class BookRepository(private val apiService: ApiService, private val context: Co
 
     suspend fun deleteBook(book: Book) {
 //        if (isNetworkAvailable()) {
-//            apiService.deleteBook(book.id)
+//            book.id?.let { apiService.deleteBook(it) }
 //        } else {
-//            bookDao.delete(book)
+//            bookDao.deleteById(book.id)
 //        }
     }
 }

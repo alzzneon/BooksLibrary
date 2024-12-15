@@ -15,6 +15,7 @@ import com.project.books_library.database.AplikasiDatabase
 import com.project.books_library.view_model.VisitorViewModel
 import com.project.books_library.adapter.VisitorAdapter
 import com.project.books_library.databinding.FragmentVisitorsBinding
+import com.project.books_library.model.Visitors
 
 class VisitorsFragment : Fragment() {
 
@@ -35,39 +36,37 @@ class VisitorsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.rvVisitors.layoutManager = LinearLayoutManager(requireContext())
-        visitorAdapter = VisitorAdapter()
+        visitorAdapter = VisitorAdapter(requireContext()) { visitor ->
+            deleteVisitor(visitor)
+        }
         binding.rvVisitors.adapter = visitorAdapter
 
         val visitorDao = AplikasiDatabase.getDatabase(requireContext()).visitorDao()
         val visitorRepository = VisitorRepository(RetrofitInstance.apiService, requireContext(), visitorDao)
         visitorViewModel = VisitorViewModel(visitorRepository)
 
-        errorMessage()
         observeViewModel()
-        visitorViewModel.fetchVisitors()
-
         binding.addVisitor.setOnClickListener {
             findNavController().navigate(R.id.action_visitorsFragment_to_addVisitorFragment2)
         }
     }
 
-    private fun errorMessage() {
+    private fun observeViewModel() {
+        visitorViewModel.visitorsLiveData.observe(viewLifecycleOwner) { visitors ->
+            visitors?.let {
+                visitorAdapter.submitList(it)
+            }
+        }
+
         visitorViewModel.errorLiveData.observe(viewLifecycleOwner) { errorMessage ->
-            Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_LONG).show()
+            errorMessage?.let {
+                Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
+            }
         }
     }
 
-    private fun observeViewModel() {
-        visitorViewModel.visitorsLiveData.observe(viewLifecycleOwner) { visitors ->
-            if (visitors != null) {
-                visitorAdapter.submitList(visitors)
-            }
-        }
-        visitorViewModel.errorLiveData.observe(viewLifecycleOwner) { errorMessage ->
-            if (errorMessage != null) {
-                Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
-            }
-        }
+    private fun deleteVisitor(visitor: Visitors) {
+        visitorViewModel.deleteVisitor(visitor)
     }
 
     override fun onDestroyView() {

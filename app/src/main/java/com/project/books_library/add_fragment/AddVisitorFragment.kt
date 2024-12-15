@@ -78,7 +78,7 @@ class AddVisitorFragment : Fragment() {
             }
             Toast.makeText(requireContext(), "Pengunjung berhasil ditambahkan!", Toast.LENGTH_SHORT).show()
             parentFragmentManager.popBackStack()
-            visitorViewModel.fetchVisitors()
+//            visitorViewModel.fetchVisitors()
         }
         return binding.root
     }

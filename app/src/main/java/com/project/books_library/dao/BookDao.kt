@@ -10,7 +10,7 @@ import com.project.books_library.model.Book
 @Dao
 interface BookDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertBooks(books: List<Book>)
+    suspend fun insertListBooks(books: List<Book>)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(book: Book)

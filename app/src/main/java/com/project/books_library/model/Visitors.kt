@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "visitors")
 data class Visitors(
-    @PrimaryKey(autoGenerate = true) val id_visitors: Int? = null,
+    @PrimaryKey(autoGenerate = true) val id_visitor: Int? = null,
     val name: String,
     val visit_date: String,
     val gender: String,
