@@ -2,6 +2,7 @@ package com.project.books_library.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
@@ -82,7 +83,7 @@ class VisitorAdapter(
         private fun showDeleteConfirmationDialog(context: Context, visitor: Visitors, onDeleteClick: (Visitors) -> Unit) {
             val builder = AlertDialog.Builder(context)
             builder.setTitle("Konfirmasi Hapus")
-            builder.setMessage("Apakah Anda yakin ingin menghapus ${visitor.name}?")
+            builder.setMessage("\nUntuk Menghapus Pastika Terhubung ke Internet\nApakah Anda yakin ingin menghapus ${visitor.name}?")
             builder.setPositiveButton("Ya") { dialog, _ ->
                 onDeleteClick(visitor)
                 Toast.makeText(context, "${visitor.name} berhasil dihapus!", Toast.LENGTH_LONG).show()

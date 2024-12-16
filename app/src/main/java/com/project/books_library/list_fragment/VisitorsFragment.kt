@@ -9,13 +9,13 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.project.books_library.R
+import com.project.books_library.adapter.VisitorAdapter
 import com.project.books_library.api.RetrofitInstance
 import com.project.books_library.api.repository.VisitorRepository
 import com.project.books_library.database.AplikasiDatabase
-import com.project.books_library.view_model.VisitorViewModel
-import com.project.books_library.adapter.VisitorAdapter
 import com.project.books_library.databinding.FragmentVisitorsBinding
 import com.project.books_library.model.Visitors
+import com.project.books_library.view_model.VisitorViewModel
 
 class VisitorsFragment : Fragment() {
 
@@ -57,7 +57,7 @@ class VisitorsFragment : Fragment() {
     private fun observeViewModel() {
         visitorViewModel.visitorsLiveData.observe(viewLifecycleOwner) { visitors ->
             visitors?.let {
-                visitorAdapter.submitList(it)
+                visitorAdapter.submitList(visitors)
             }
         }
 
@@ -75,6 +75,8 @@ class VisitorsFragment : Fragment() {
     private fun editVisitor(visitor: Visitors) {
         visitorViewModel.editVisitor(visitor)
     }
+
+
 
     override fun onDestroyView() {
         super.onDestroyView()

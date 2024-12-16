@@ -39,8 +39,7 @@ class VisitorViewModel(private val visitorRepository: VisitorRepository) : ViewM
     fun editVisitor(visitors: Visitors) {
         viewModelScope.launch {
             try {
-                visitorRepository.editVisitor(visitors)
-                visitorsLiveData = visitorRepository.getVisitors()
+                visitorsLiveData = visitorRepository.editVisitor(visitors)
             } catch (e: Exception) {
                 val errorMessage = e.message ?: "Terjadi kesalahan dalam mengedit pengunjung"
                 _errorLiveData.postValue(errorMessage)
