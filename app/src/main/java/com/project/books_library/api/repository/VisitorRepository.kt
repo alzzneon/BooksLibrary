@@ -142,6 +142,7 @@ class VisitorRepository(
 
     suspend fun deleteVisitors(visitor: Visitors) {
         if (isNetworkAvailable()) {
+            visitorDao.deleteById(visitor.id_visitor)
             apiService.deleteVisitor(visitor.id_visitor!!)
         } else {
             visitorDao.deleteById(visitor.id_visitor)
