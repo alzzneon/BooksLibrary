@@ -93,10 +93,23 @@ class BookRepository(private val apiService: ApiService, private val context: Co
     }
 
     suspend fun deleteBook(book: Book) {
-//        if (isNetworkAvailable()) {
-//            book.id?.let { apiService.deleteBook(it) }
-//        } else {
-//            bookDao.deleteById(book.id)
-//        }
+        if (isNetworkAvailable()) {
+            try {
+                // Menghapus buku dari API menggunakan ID buku
+                book.id?.let {
+                    apiService.deleteBook(it)
+                    Log.d("BookRepository", "Buku berhasil dihapus dari API: ${book.title}")
+                }
+            } catch (e: Exception) {
+                Log.e("BookRepository", "Gagal menghapus buku dari API: ${e.message}")
+            }
+        }
+        // Menghapus buku secara lokal di database
+        book.id?.let {
+            bookDao.deleteById(it)
+            Log.d("BookRepository", "Buku berhasil dihapus dari database lokal: ${book.title}")
+        }
     }
+
+
 }
