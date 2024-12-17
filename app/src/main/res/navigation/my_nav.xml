@@ -29,7 +29,11 @@
         android:id="@+id/lendingFragment"
         android:name="com.project.books_library.LendingFragment"
         android:label="fragment_lending"
-        tools:layout="@layout/fragment_lending" />
+        tools:layout="@layout/fragment_lending" >
+        <action
+            android:id="@+id/action_lendingFragment_to_addLendingFragment"
+            app:destination="@id/addLendingFragment" />
+    </fragment>
     <fragment
         android:id="@+id/addBookFragment"
         android:name="com.project.books_library.add_fragment.AddBookFragment"
@@ -45,4 +49,9 @@
         android:name="com.project.books_library.add_fragment.AddVisitorFragment"
         android:label="fragment_add_visitor"
         tools:layout="@layout/fragment_add_visitor" />
+    <fragment
+        android:id="@+id/addLendingFragment"
+        android:name="com.project.BooksLibrary.addLendingFragment"
+        android:label="fragment_add_lending"
+        tools:layout="@layout/fragment_add_lending" />
 </navigation>
