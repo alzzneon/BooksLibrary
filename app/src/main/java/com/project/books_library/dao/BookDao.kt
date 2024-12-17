@@ -6,6 +6,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 import com.project.books_library.model.Book
 
 @Dao
@@ -15,6 +16,9 @@ interface BookDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(book: Book)
+
+    @Update
+    suspend fun update(book: Book)
 
     @Query("SELECT * FROM books")
     fun getAllBooks(): LiveData<List<Book>>

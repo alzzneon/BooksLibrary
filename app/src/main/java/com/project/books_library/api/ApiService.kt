@@ -19,6 +19,9 @@ interface ApiService {
     @POST("/books")
     suspend fun insertBook(@Body book: Book)
 
+    @PUT("/books/{id}")
+    suspend fun updateBook(@Path("id") id: Int, @Body book: Book): Book
+
     @DELETE("/books/{id}")
     suspend fun deleteBook(@Path("id") id: Int): Book
 

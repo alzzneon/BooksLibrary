@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.project.books_library.R
 import com.project.books_library.api.RetrofitInstance
 import com.project.books_library.api.repository.BookRepository
 import com.project.books_library.database.AplikasiDatabase
@@ -48,6 +49,14 @@ class DetailBookFragment : Fragment() {
         // Set listener untuk tombol DELETE
         binding.btnDelete.setOnClickListener {
             currentBook?.let { deleteBook(it) }
+        }
+
+        // Set listener untuk tombol EDIT
+        binding.btnEdit.setOnClickListener {
+            val bundle = Bundle().apply {
+                putInt("BOOK_ID", bookId) // Kirim ID buku ke EditBookFragment
+            }
+            findNavController().navigate(R.id.action_detailBookFragment_to_editBookFragment, bundle)
         }
 
     }

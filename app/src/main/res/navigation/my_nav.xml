@@ -43,7 +43,11 @@
         android:id="@+id/detailBookFragment"
         android:name="com.project.books_library.list_fragment.DetailBookFragment"
         android:label="fragment_detail_book"
-        tools:layout="@layout/fragment_detail_book" />
+        tools:layout="@layout/fragment_detail_book" >
+        <action
+            android:id="@+id/action_detailBookFragment_to_editBookFragment"
+            app:destination="@id/editBookFragment" />
+    </fragment>
     <fragment
         android:id="@+id/addVisitorFragment2"
         android:name="com.project.books_library.add_fragment.AddVisitorFragment"
@@ -54,4 +58,9 @@
         android:name="com.project.BooksLibrary.addLendingFragment"
         android:label="fragment_add_lending"
         tools:layout="@layout/fragment_add_lending" />
+    <fragment
+        android:id="@+id/editBookFragment"
+        android:name="com.project.books_library.EditBookFragment"
+        android:label="fragment_edit_book"
+        tools:layout="@layout/fragment_edit_book" />
 </navigation>

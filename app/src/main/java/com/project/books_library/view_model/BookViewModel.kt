@@ -45,7 +45,7 @@ class BookViewModel(private val BooksRepository: BookRepository) : ViewModel() {
         fun updateBook(updatedBook: Book) {
             viewModelScope.launch {
                 try {
-                    BooksRepository.updateBook(updatedBook) //
+                    BooksRepository.updateBook(updatedBook)
                 } catch (e: Exception) {
                     val errorMessage = e.message ?: "Terjadi kesalahan dalam memperbarui data buku"
                     _errorliveData.postValue(errorMessage)

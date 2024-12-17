@@ -85,11 +85,27 @@ class BookRepository(private val apiService: ApiService, private val context: Co
     }
 
     suspend fun updateBook(updatedBook: Book) {
-//        if (isNetworkAvailable()) {
-//            apiService.(updatedBook)
-//        } else {
-//            bookDao.update(updatedBook)
-//        }
+        if (isNetworkAvailable()) {
+            try {
+                // Ensure the book has an ID for updating
+                updatedBook.id?.let { id ->
+                    // Call API to update the book
+                    val updatedBookResponse = apiService.updateBook(id, updatedBook)
+
+                    // Update local database
+                    bookDao.insert(updatedBookResponse)
+
+                    Log.d("BookRepository", "Buku berhasil diperbarui: ${updatedBook.title}")
+                } ?: throw IllegalArgumentException("Book ID cannot be null")
+            } catch (e: Exception) {
+                Log.e("BookRepository", "Gagal memperbarui buku: ${e.message}")
+                // If API update fails, update local database
+                bookDao.insert(updatedBook)
+            }
+        } else {
+            // If no network, update local database
+            bookDao.insert(updatedBook)
+        }
     }
 
     suspend fun deleteBook(book: Book) {
