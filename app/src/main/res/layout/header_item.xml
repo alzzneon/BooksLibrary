@@ -8,7 +8,7 @@
         android:id="@+id/headerGenre"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Genre"
+        android:text="Header"
         android:textSize="24sp"
         android:textStyle="bold"
         android:padding="8dp"

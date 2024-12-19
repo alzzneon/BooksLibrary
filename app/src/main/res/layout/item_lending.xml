@@ -11,7 +11,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         app:cardCornerRadius="8dp"
-        app:cardElevation="3dp"
+        app:cardElevation="4dp"
+        app:cardBackgroundColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -26,8 +27,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="Name: "
-                android:textSize="14sp"
-                android:textColor="@android:color/darker_gray"
+                android:textSize="16sp"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -37,17 +39,17 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="Book: "
-                android:textSize="14sp"
-                android:textColor="@android:color/darker_gray"
+                android:textSize="16sp"
+                android:textColor="@android:color/black"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_borrower_name" />
 
             <TextView
-                android:id="@+id/tv_borrow_date"
+                android:id="@+id/tv_lending_date"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Borrow Date: "
+                android:text="Tanggal Peminjaman"
                 android:textSize="14sp"
                 android:textColor="@android:color/darker_gray"
                 app:layout_constraintStart_toStartOf="parent"
@@ -55,21 +57,33 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_book_name" />
 
             <TextView
-                android:id="@+id/tv_borrow_status"
+                android:id="@+id/tv_lending_return"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Status: "
+                android:text="Tanggal Pengembalian"
                 android:textSize="14sp"
                 android:textColor="@android:color/darker_gray"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_borrow_date" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_lending_date"/>
+
+            <TextView
+                android:id="@+id/tv_lending_status"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Status: "
+                android:textSize="14sp"
+                android:textColor="@android:color/holo_green_dark"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_lending_return" />
 
             <ImageButton
                 android:id="@+id/btn_edit_borrow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_edit"
+                android:contentDescription="Edit borrow entry"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:background="?attr/selectableItemBackgroundBorderless"
@@ -80,7 +94,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_delete"
-                android:contentDescription="delete borrow entry"
+                android:contentDescription="Delete borrow entry"
                 app:layout_constraintEnd_toStartOf="@id/btn_edit_borrow"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:background="?attr/selectableItemBackgroundBorderless"

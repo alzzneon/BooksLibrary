@@ -4,17 +4,17 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.project.books_library.dao.BookDao
-import com.project.books_library.dao.PeminjamanDao
+import com.project.books_library.dao.LendingDao
 import com.project.books_library.dao.VisitorDao
 import com.project.books_library.model.Book
-import com.project.books_library.model.Peminjaman
+import com.project.books_library.model.Lending
 import com.project.books_library.model.Visitors
 
-@Database(entities = [Book::class, Peminjaman::class, Visitors::class], version = 1)
+@Database(entities = [Book::class, Visitors::class, Lending::class], version = 1)
 abstract class AplikasiDatabase : RoomDatabase() {
 
     abstract fun bookDao(): BookDao
-    abstract fun peminjamanDao(): PeminjamanDao
+    abstract fun lendingDao(): LendingDao
     abstract fun visitorDao(): VisitorDao
 
     companion object {

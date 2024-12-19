@@ -29,13 +29,13 @@
         android:layout_marginTop="16dp"
         app:boxStrokeColor="@color/primary">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editTextBorrowerName"
+        <Spinner
+            android:id="@+id/spinnerLendingName"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="18sp"
+            android:layout_height="48dp"
+            android:background="@drawable/spinner"
             android:padding="12dp"
-            android:backgroundTint="@color/primary" />
+            android:spinnerMode="dropdown" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -50,17 +50,17 @@
         android:layout_marginTop="16dp"
         app:boxStrokeColor="@color/primary">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editTextBookTitle"
+        <Spinner
+            android:id="@+id/spinnerBookTitle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="18sp"
+            android:layout_height="48dp"
             android:padding="12dp"
-            android:backgroundTint="@color/primary" />
+            android:background="@drawable/spinner"
+            android:spinnerMode="dropdown"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayoutBorrowDate"
+        android:id="@+id/textInputLayoutLendingDate"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="Tanggal Peminjaman"
@@ -82,27 +82,6 @@
             android:backgroundTint="@color/primary" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayoutBorrowStatus"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="Status Peminjaman"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        app:layout_constraintTop_toBottomOf="@id/textInputLayoutBorrowDate"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"
-        app:boxStrokeColor="@color/primary">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editTextBorrowStatus"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:padding="12dp"
-            android:backgroundTint="@color/primary"
-            android:inputType="textCapWords" />
-    </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/buttonSubmit"
@@ -113,7 +92,7 @@
         app:backgroundTint="@color/primary"
         app:cornerRadius="8dp"
         app:elevation="4dp"
-        app:layout_constraintTop_toBottomOf="@id/textInputLayoutBorrowStatus"
+        app:layout_constraintTop_toBottomOf="@id/textInputLayoutLendingDate"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="24dp" />

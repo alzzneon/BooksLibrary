@@ -30,12 +30,14 @@ class MainActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             supportActionBar?.title = when (destination.id) {
                 R.id.visitorsFragment -> "Visitors"
-                R.id.booksFragment -> "Books"
-                R.id.lendingFragment -> "Lending"
-                R.id.addBookFragment -> "Add Book"
-                R.id.detailBookFragment -> "Detail of Book"
                 R.id.addVisitorFragment2 -> "Add Visitor"
-                else -> "Default Title"
+                R.id.booksFragment -> "Books"
+                R.id.detailBookFragment -> "Detail of Book"
+                R.id.addBookFragment -> "Add Book"
+                R.id.editBookFragment -> "Edit Book"
+                R.id.lendingFragment -> "Lending"
+                R.id.addLendingFragment -> "Add Lending"
+                else -> "Books Library"
             }
         }
     }

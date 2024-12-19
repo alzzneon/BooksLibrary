@@ -3,7 +3,8 @@ package com.project.books_library.api.repository
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import android.util.Log
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import com.project.books_library.api.ApiService
@@ -13,13 +14,17 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class BookRepository(private val apiService: ApiService, private val context: Context, private val bookDao: BookDao) {
+class BookRepository(
+    private val apiService: ApiService,
+    private val context: Context,
+    private val bookDao: BookDao
+) {
+
+    private val coroutineScope = CoroutineScope(Dispatchers.IO)
 
     private fun isNetworkAvailable(): Boolean {
-        val connectivityManager =
-            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val networkCapabilities =
-            connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val networkCapabilities = connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
         return networkCapabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) == true
     }
 
@@ -31,45 +36,97 @@ class BookRepository(private val apiService: ApiService, private val context: Co
         }
 
         if (isNetworkAvailable()) {
-            CoroutineScope(Dispatchers.IO).launch {
-                try {
-                    val booksFromApi: List<Book> = apiService.getBooks()
-                    val existingBooks = localBooks.value?.map { it.title }?.toSet() ?: emptySet()
-                    val newBooks = booksFromApi.filter { it.title !in existingBooks }
+            coroutineScope.launch {
+                val booksFromApi = apiService.getBooks()
+                val localBookList = localBooks.value ?: emptyList()
+                val bookToSync = mutableListOf<Book>()
+                val bookToDeleteOrSend = mutableListOf<Book>()
 
-                    if (newBooks.isNotEmpty()) {
-                        bookDao.insertListBooks(newBooks)
-                    }
+                localBookList.forEach { localBooks ->
+                    booksFromApi.find { it.id == localBooks.id }?.let { apiBook ->
+                        if (localBooks != apiBook) bookToSync.add(localBooks)
+                    } ?: bookToDeleteOrSend.add(localBooks)
+                }
 
-                    localBooks.value?.forEach { localBook ->
-                        if (localBook.title !in booksFromApi.map { it.title }) {
-                            try {
-                                apiService.insertBook(localBook)
-                                Log.d(
-                                    "BookRepository",
-                                    "Buku dikirimkan ke API: ${localBook.title}"
-                                )
-                            } catch (e: Exception) {
-                                Log.e(
-                                    "BookRepository",
-                                    "Gagal Mengirimkan Buku ke API: ${e.message}"
-                                )
-                            }
-                        }
+                if (bookToSync.isNotEmpty()) showSyncChoiceDialog(bookToSync, booksFromApi)
+                if (bookToDeleteOrSend.isNotEmpty()) showDeleteOrSendDialog(bookToDeleteOrSend)
+
+                booksFromApi.forEach { apiBook ->
+                    if (localBookList.none { it.id == apiBook.id}) {
+                        bookDao.insert(apiBook)
                     }
-                } catch (e: Exception) {
-                    Log.e("BookRepository", "Gagal mengambil data dari API: ${e.message}")
                 }
             }
         }
-
         return result
+    }
+    private fun showSyncChoiceDialog(bookToSync: List<Book>, bookFromApi: List<Book>) {
+        CoroutineScope(Dispatchers.Main).launch {
+            AlertDialog.Builder(context).apply {
+                setTitle("Konfirmasi Sinkronisasi")
+                setMessage("Ada ${bookToSync.size} data yang telah berubah. Pilih sumber data mana yang ingin digunakan:")
+                setPositiveButton("Gunakan Data Lokal") { dialog, _ ->
+                    coroutineScope.launch {
+                        bookToSync.forEach { localbook ->
+                            apiService.updateBook(localbook.id!!, localbook)
+                            showToast("Data lokal untuk ${localbook.title} disinkronkan ke API.")
+                        }
+                        dialog.dismiss()
+                    }
+                }
+                setNegativeButton("Gunakan Data API") { dialog, _ ->
+                    coroutineScope.launch {
+                        bookFromApi.forEach { apiVisitor ->
+                            bookDao.update(apiVisitor)
+                            showToast("Data API untuk ${apiVisitor.title} disinkronkan ke database lokal.")
+                        }
+                        dialog.dismiss()
+                    }
+                }
+                setNeutralButton("Batal") { dialog, _ -> dialog.dismiss() }
+                create().show()
+            }
+        }
+    }
+
+    private fun showDeleteOrSendDialog(bookToDeleteOrSend: List<Book>) {
+        CoroutineScope(Dispatchers.Main).launch {
+            AlertDialog.Builder(context).apply {
+                setTitle("Data Tidak Ditemukan di API")
+                setMessage("Ada ${bookToDeleteOrSend.size} data yang tidak ditemukan di API. Apakah Anda ingin menghapus semua data ini dari database lokal atau mengirimnya ke API?")
+                setPositiveButton("Hapus Semua Data") { dialog, _ ->
+                    coroutineScope.launch {
+                        bookToDeleteOrSend.forEach { bookLocal ->
+                            bookDao.deleteById(bookLocal.id)
+                            showToast("Data untuk ${bookLocal.title} dihapus dari database lokal.")
+                        }
+                        dialog.dismiss()
+                    }
+                }
+                setNegativeButton("Kirim Semua ke API") { dialog, _ ->
+                    coroutineScope.launch {
+                        bookToDeleteOrSend.forEach { bookLocal ->
+                            apiService.insertBook(bookLocal)
+                            showToast("Data untuk ${bookLocal.title} dikirim ke API.")
+                        }
+                        dialog.dismiss()
+                    }
+                }
+                setNeutralButton("Batal") { dialog, _ -> dialog.dismiss() }
+                create().show()
+            }
+        }
+    }
+
+    private fun showToast(message: String) {
+        CoroutineScope(Dispatchers.Main).launch {
+            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+        }
     }
 
     suspend fun getBookById(id: Int): Book {
         return if (isNetworkAvailable()) {
             val book = apiService.getBookById(id)
-            bookDao.insertListBooks(listOf(book))
             book
         } else {
             bookDao.getBookById(id)
@@ -84,48 +141,28 @@ class BookRepository(private val apiService: ApiService, private val context: Co
         }
     }
 
-    suspend fun updateBook(updatedBook: Book) {
+    suspend fun editBook(book: Book): LiveData<List<Book>> {
         if (isNetworkAvailable()) {
-            try {
-                // Ensure the book has an ID for updating
-                updatedBook.id?.let { id ->
-                    // Call API to update the book
-                    val updatedBookResponse = apiService.updateBook(id, updatedBook)
-
-                    // Update local database
-                    bookDao.insert(updatedBookResponse)
-
-                    Log.d("BookRepository", "Buku berhasil diperbarui: ${updatedBook.title}")
-                } ?: throw IllegalArgumentException("Book ID cannot be null")
-            } catch (e: Exception) {
-                Log.e("BookRepository", "Gagal memperbarui buku: ${e.message}")
-                // If API update fails, update local database
-                bookDao.insert(updatedBook)
-            }
+            apiService.updateBook(book.id!!, book)
         } else {
-            // If no network, update local database
-            bookDao.insert(updatedBook)
+            bookDao.update(book)
         }
+        return getBooks()
     }
 
     suspend fun deleteBook(book: Book) {
         if (isNetworkAvailable()) {
-            try {
-                // Menghapus buku dari API menggunakan ID buku
-                book.id?.let {
-                    apiService.deleteBook(it)
-                    Log.d("BookRepository", "Buku berhasil dihapus dari API: ${book.title}")
-                }
-            } catch (e: Exception) {
-                Log.e("BookRepository", "Gagal menghapus buku dari API: ${e.message}")
+            val response = apiService.deleteBook(book.id!!)
+            if (response.isSuccessful) {
+                bookDao.deleteById(book.id)
+            } else {
+                throw Exception("Gagal Menghapus Buku Dari API: ${response.message()}")
             }
-        }
-        // Menghapus buku secara lokal di database
-        book.id?.let {
-            bookDao.deleteById(it)
-            Log.d("BookRepository", "Buku berhasil dihapus dari database lokal: ${book.title}")
+        } else {
+            bookDao.deleteById(book.id)
         }
     }
-
-
+    fun getAllBookTitles(): LiveData<List<String>> {
+        return bookDao.getAllBookTitles()
+    }
 }

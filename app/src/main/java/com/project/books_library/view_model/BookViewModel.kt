@@ -9,8 +9,8 @@ import com.project.books_library.model.Book
 import kotlinx.coroutines.launch
 
 class BookViewModel(private val BooksRepository: BookRepository) : ViewModel() {
-
     val booksLiveData: LiveData<List<Book>> get() = BooksRepository.getBooks()
+    val bookTitles: LiveData<List<String>> = BooksRepository.getAllBookTitles()
 
     private val _bookLiveData = MutableLiveData<Book>()
     val bookLiveData: LiveData<Book> get() = _bookLiveData
@@ -30,38 +30,36 @@ class BookViewModel(private val BooksRepository: BookRepository) : ViewModel() {
         }
     }
 
-        fun insertBuku(book: Book) {
-            viewModelScope.launch {
-                try {
-                    BooksRepository.insertBook(book)
-                } catch (e: Exception) {
-                    val errorMessage = e.message ?: "Terjadi kesalahan dalam menyimpan data buku"
-                    _errorliveData.postValue(errorMessage)
-                }
-            }
-        }
-
-        // belum di fix
-        fun updateBook(updatedBook: Book) {
-            viewModelScope.launch {
-                try {
-                    BooksRepository.updateBook(updatedBook)
-                } catch (e: Exception) {
-                    val errorMessage = e.message ?: "Terjadi kesalahan dalam memperbarui data buku"
-                    _errorliveData.postValue(errorMessage)
-                }
-            }
-        }
-
-        // belum di fix
-        fun deleteBook(book: Book) {
-            viewModelScope.launch {
-                try {
-                    BooksRepository.deleteBook(book)
-                } catch (e: Exception) {
-                    val errorMessage = e.message ?: "Terjadi kesalahan dalam menghapus data buku"
-                    _errorliveData.postValue(errorMessage)
-                }
+    fun insertBuku(book: Book) {
+        viewModelScope.launch {
+            try {
+                BooksRepository.insertBook(book)
+            } catch (e: Exception) {
+                val errorMessage = e.message ?: "Terjadi kesalahan dalam menyimpan data buku"
+                _errorliveData.postValue(errorMessage)
             }
         }
     }
+
+    fun updateBook(updatedBook: Book) {
+        viewModelScope.launch {
+            try {
+                BooksRepository.editBook(updatedBook)
+            } catch (e: Exception) {
+                val errorMessage = e.message ?: "Terjadi kesalahan dalam memperbarui data buku"
+                _errorliveData.postValue(errorMessage)
+            }
+        }
+    }
+
+    fun deleteBook(book: Book) {
+        viewModelScope.launch {
+            try {
+                BooksRepository.deleteBook(book)
+            } catch (e: Exception) {
+                val errorMessage = e.message ?: "Terjadi kesalahan dalam menghapus data buku"
+                _errorliveData.postValue(errorMessage)
+            }
+        }
+    }
+}

@@ -31,6 +31,7 @@ class BukuAdapter(private val onItemCLick: (Int) -> Unit): ListAdapter<Book, Rec
             binding.root.setOnClickListener {
                 book.id?.let { it1 -> onItemCLick(it1) }
             }
+
         }
 
         companion object {
@@ -97,7 +98,7 @@ class BukuAdapter(private val onItemCLick: (Int) -> Unit): ListAdapter<Book, Rec
 
     class RowCallback : DiffUtil.ItemCallback<Book>() {
         override fun areItemsTheSame(oldItem: Book, newItem: Book): Boolean {
-            return oldItem == newItem
+            return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(oldItem: Book, newItem: Book): Boolean {

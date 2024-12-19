@@ -1,9 +1,12 @@
 package com.project.books_library.model
 
 import androidx.room.Entity
+import androidx.room.Index
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "visitors")
+@Entity(tableName = "visitors",
+    indices = [Index(value = ["name"], unique = true)]
+)
 data class Visitors(
     @PrimaryKey(autoGenerate = true) var id_visitor: Int? = null,
     var name: String,

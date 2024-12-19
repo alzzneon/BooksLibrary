@@ -60,7 +60,6 @@ class BooksFragment : Fragment() {
             if (books != null) {
                 bukuAdapter.submitBooksByGenre(books)
             }
-            binding.swipeRefreshLayout.isRefreshing = false
         }
     }
     private fun onBookClick(bookId: Int) {

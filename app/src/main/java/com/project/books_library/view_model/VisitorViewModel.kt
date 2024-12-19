@@ -10,6 +10,7 @@ import kotlinx.coroutines.launch
 
 class VisitorViewModel(private val visitorRepository: VisitorRepository) : ViewModel() {
     var visitorsLiveData: LiveData<List<Visitors>> = visitorRepository.getVisitors()
+    val visitorNames: LiveData<List<String>> = visitorRepository.getAllVisitorName()
 
     private val _errorLiveData = MutableLiveData<String>()
     val errorLiveData: LiveData<String> get() = _errorLiveData

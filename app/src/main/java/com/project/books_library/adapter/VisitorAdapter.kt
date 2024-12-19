@@ -2,7 +2,6 @@ package com.project.books_library.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
@@ -30,11 +29,11 @@ class VisitorAdapter(
             binding.tvEmail.text = "Email: ${visitor.email}"
             binding.tvVisitPurpose.text = "Purpose: ${visitor.visit_purpose}"
 
-            binding.btnDelete.setOnClickListener {
-                showDeleteConfirmationDialog(context, visitor, onDeleteClick)
-            }
             binding.btnEdit.setOnClickListener {
                 showEditDialog(context, visitor, onEditClick)
+            }
+            binding.btnDelete.setOnClickListener {
+                showDeleteConfirmationDialog(context, visitor, onDeleteClick)
             }
         }
 

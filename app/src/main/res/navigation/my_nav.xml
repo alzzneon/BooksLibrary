@@ -27,7 +27,7 @@
     </fragment>
     <fragment
         android:id="@+id/lendingFragment"
-        android:name="com.project.books_library.LendingFragment"
+        android:name="com.project.books_library.list_fragment.LendingFragment"
         android:label="fragment_lending"
         tools:layout="@layout/fragment_lending" >
         <action
@@ -55,12 +55,12 @@
         tools:layout="@layout/fragment_add_visitor" />
     <fragment
         android:id="@+id/addLendingFragment"
-        android:name="com.project.BooksLibrary.addLendingFragment"
+        android:name="com.project.books_library.add_fragment.AddLendingFragment"
         android:label="fragment_add_lending"
         tools:layout="@layout/fragment_add_lending" />
     <fragment
         android:id="@+id/editBookFragment"
-        android:name="com.project.books_library.EditBookFragment"
+        android:name="com.project.books_library.list_fragment.EditBookFragment"
         android:label="fragment_edit_book"
         tools:layout="@layout/fragment_edit_book" />
 </navigation>

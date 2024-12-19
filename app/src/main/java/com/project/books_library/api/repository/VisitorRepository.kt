@@ -31,7 +31,9 @@ class VisitorRepository(
     fun getVisitors(): LiveData<List<Visitors>> {
         val result = MediatorLiveData<List<Visitors>>()
         val localVisitors = visitorDao.getAllVisitors()
-        result.addSource(localVisitors) { visitors -> result.value = visitors }
+        result.addSource(localVisitors) { visitors ->
+            result.value = visitors
+        }
 
         if (isNetworkAvailable()) {
             coroutineScope.launch {
@@ -142,10 +144,18 @@ class VisitorRepository(
 
     suspend fun deleteVisitors(visitor: Visitors) {
         if (isNetworkAvailable()) {
-            visitorDao.deleteById(visitor.id_visitor)
-            apiService.deleteVisitor(visitor.id_visitor!!)
+            val response = apiService.deleteVisitor(visitor.id_visitor!!)
+            if (response.isSuccessful) {
+                visitorDao.deleteById(visitor.id_visitor)
+            } else {
+                throw Exception("Gagal Menghapus Pengunjung Dari API: ${response.message()}")
+            }
         } else {
             visitorDao.deleteById(visitor.id_visitor)
         }
+    }
+
+    fun getAllVisitorName(): LiveData<List<String>> {
+        return visitorDao.getAllVisitorNames()
     }
 }

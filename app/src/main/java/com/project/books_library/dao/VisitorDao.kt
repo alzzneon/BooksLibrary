@@ -22,4 +22,7 @@ interface VisitorDao {
     @Update
     suspend fun updateVisitor(visitor: Visitors)
 
+    @Query("SELECT name FROM visitors")
+    fun getAllVisitorNames(): LiveData<List<String>>
+
 }
